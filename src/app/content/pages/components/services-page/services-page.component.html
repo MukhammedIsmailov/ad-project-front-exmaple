@@ -1,0 +1,171 @@
+<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+<div class="m-portlet">
+    <div class="m-widget14">
+        <div class="m-widget__container">
+            <ngb-tabset>
+                <ng-container *ngIf="servicesInfo.length">
+                    <ngb-tab *ngFor="let service of servicesInfo">
+                        <ng-template ngbTabTitle>
+                            <div class="service-tab" (click)="selectService(service)">
+                                {{service.name}}
+                            </div>
+                        </ng-template>
+                        <ng-template ngbTabContent>
+                            <ng-container *ngIf="!deleteModalStatus">
+                                <div class="form-group m-form__group m--margin-top-10">
+                                    <label class="m--font-boldest">Select website</label>
+                                    <select class="form-control m-input" name="selectedWebsite"
+                                            [(ngModel)]="selectedSiteID">
+                                        <ng-container *ngFor="let website of websites">
+                                            <option *ngIf="website.subscribers.length" value="{{website._id}}">
+                                                {{website.url}} ({{website.subscribers.length}} subscribers)
+                                            </option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                                <ng-container *ngIf="selectedSiteID">
+                                    <div class="m-portlet__foot m-portlet__foot--fit">
+                                        <div class="m-form__actions">
+                                            <div class="form-group m-form__group schedule-for-later__checkboxes">
+                                                <mat-checkbox class="services-send__checkbox"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              [(ngModel)]="openedDuplicate">
+                                                    Duplicate
+                                                </mat-checkbox>
+                                                <mat-checkbox class="services-send__checkbox"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              [(ngModel)]="openedDelayedDispatch">
+                                                    Delayed dispatch
+                                                </mat-checkbox>
+                                                <mat-checkbox class="services-send__checkbox"
+                                                              [ngModelOptions]="{standalone: true}"
+                                                              [(ngModel)]="openedSendingAtIntervals">
+                                                    Sending at intervals
+                                                </mat-checkbox>
+                                            </div>
+                                            <div class="m-form__actions services-send__selected-options"
+                                                 *ngIf="openedDuplicate || openedDelayedDispatch || openedSendingAtIntervals">
+                                                <div class="row justify-content-center flex-wrap">
+                                                    <div class="col-12 d-flex justify-content-center align-items-center
+                                             services-send__duplicate flex-wrap"
+                                                         [class.services-send__duplicate-active]="openedDelayedDispatch || openedSendingAtIntervals"
+                                                         *ngIf="openedDuplicate">
+                                                        <div class="services__duplicate-text">Duplications:</div>
+                                                        <form class="services__duplicate-form count-form">
+                                                    <span class="count-form__button count-form__decrement"
+                                                          (click)="decrementDuplicateCount()"></span>
+                                                            <input type="number" class="count-form__input"
+                                                                   name="duplicateCount"
+                                                                   #countDuplicate
+                                                                   [(ngModel)]="duplicateCount"
+                                                                   (change)="validateDuplicateCount(countDuplicate.value)"
+                                                                   (keyup)="validateDuplicateCount(countDuplicate.value)">
+                                                            <span class="count-form__button count-form__increment"
+                                                                  (click)="incrementDuplicateCount()"></span>
+                                                        </form>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 d-flex flex-wrap align-content-center justify-content-center"
+                                                         *ngIf="openedDelayedDispatch">
+                                                        <div class="col-12 text-center m--font-bold m--padding-5 services__date-time-text">
+                                                            Selected time: {{dateForShow}}</div>
+                                                        <div class="col-auto services-send__date-selected">
+                                                            <ngb-datepicker (click)="dateSelected()" #dp
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            [minDate]="minDate"
+                                                                            [(ngModel)]="selectedDate">
+                                                            </ngb-datepicker>
+                                                        </div>
+                                                        <div class="col-auto services-send__time-selected">
+                                                            <ngb-timepicker (click)="pickerClicked()"
+                                                                            (keydown)="pickerClicked()"
+                                                                            (ngModelChange)="pickerClicked()"
+                                                                            (change)="pickerClicked()"
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            [(ngModel)]="selectedTime"></ngb-timepicker>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 d-flex flex-wrap align-content-start
+                                            justify-content-center services__selected-interval"
+                                                         *ngIf="openedSendingAtIntervals">
+                                                        <div class="col-12 text-center m--font-bold m--padding-5 services__date-time-text">
+                                                            Selected interval of: {{showInterval}}</div>
+                                                        <div class="col-12 services-send__time-selected services-send__time-selected-interval">
+                                                            <form class="services-send__duplicate-form count-form">
+                                                        <span class="count-form__button count-form__decrement"
+                                                              (click)="decrementNumberIntervals()"></span>
+                                                                <input type="number" class="count-form__input"
+                                                                       name="duplicateCount"
+                                                                       #countIntervals
+                                                                       [(ngModel)]="numberIntervals"
+                                                                       (change)="validateNumberIntervals(countIntervals.value)"
+                                                                       (keyup)="validateNumberIntervals(countIntervals.value)">
+                                                                <span class="count-form__button count-form__increment"
+                                                                      (click)="incrementNumberIntervals()"></span>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="services-push__buttons services-buttons d-flex justify-content-between">
+                                                <div class="services-buttons__submit-and-reset">
+                                                    <button type="submit"
+                                                            class="btn btn-primary mr-3 send-push__btn-submit"
+                                                            (click)="submitSiteSubscribers()">Send
+                                                    </button>
+                                                    <button type="reset" class="btn btn-secondary"
+                                                            (click)="clearAndClose()">Clear
+                                                        all
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                            <div class="delete-service">
+                                <div class="delete-service__button d-flex justify-content-end"
+                                     [class.delete-service__button_active]="selectedSiteID"
+                                     *ngIf="!deleteModalStatus">
+                                    <button type="reset" class="btn btn-danger" (click)="changeDeleteModalStatus()">
+                                        Delete service
+                                    </button>
+                                </div>
+                                <div *ngIf="deleteModalStatus" class="delete-service__delete-confirm delete-confirm">
+                                    <div class="col-12 text-center">
+                                        <p class="delete-confirm__text campaign-data__description">Are you sure?</p>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button class="btn btn-danger m-btn m-btn--custom m-btn--boldest m-btn--uppercase mr-1"
+                                                (click)="deleteService(service._id)">
+                                            Yes
+                                        </button>
+                                        <button class="btn btn-light m-btn m-btn--custom m-btn--boldest m-btn--uppercase delete-confirm__button-no"
+                                                (click)="changeDeleteModalStatus()">
+                                            No
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                </ng-container>
+                <ngb-tab *ngIf="addNewCampaignTebStatus">
+                    <ng-template ngbTabTitle>
+                        <div class="service-tab">
+                            <img class="add-service__icon" src="../../../../../../assets/app/media/img/icons/plus.svg"
+                                 alt="add-service">
+                        </div>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <m-add-service [(servicesInfoAddService)]="servicesInfo"
+                                       [(loadingSpinnerAddService)]="loadingSpinner"
+                                       [serviceFields]="serviceFields"
+                                       [subscriberFields]="subscriberFields"></m-add-service>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

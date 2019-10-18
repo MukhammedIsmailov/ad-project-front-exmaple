@@ -1,0 +1,176 @@
+<div>
+	<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+	<div class="m-portlet">
+		<div class="m-section m-section--last">
+			<div class="m-demo">
+				<div class="m-demo__preview">
+					<div class="">
+						<div class="m-list-search__results">
+							<span
+								class="m-list-search__result-message {{campaigns.length ? 'm--hide' : null}}">
+								No record found
+							</span>
+							<div *ngIf="viewCampaigns">
+								<div class="m-section__content" >
+									<label class="filters-btn-container d-flex align-items-center" for="filters">
+										<div class="rounded-circle mr-1">
+											🔍
+										</div>
+										<small class="filter-btn">Filter</small>
+										<input type="checkbox" id="filters" class="d-none" [(ngModel)]="isOpenFilter">
+									</label>
+									<br/>
+									<div class="filters-container" *ngIf="isOpenFilter">
+										<div class="filters d-flex flex-column justify-content-around">
+											<div class="d-flex justify-content-between time">
+												<div class="d-flex flex-column">
+													<small>From</small>
+													<form class="form-inline">
+														<div class="form-group">
+															<div class="input-group">
+																<input class="form-control"
+																	   placeholder="yyyy-mm-dd"
+																	   name="dp1"
+																	   ngbDatepicker
+																	   #toDP1="ngbDatepicker"
+																	   (click)="toDP1.toggle()"
+																	   [(ngModel)]="toDate1">
+															</div>
+														</div>
+													</form>
+												</div>
+												<div class="d-flex flex-column">
+													<small>To</small>
+													<form class="form-inline">
+														<div class="form-group">
+															<div class="input-group">
+																<input class="form-control"
+																	   placeholder="yyyy-mm-dd"
+																	   name="dp2"
+																	   ngbDatepicker
+																	   #toDP2="ngbDatepicker"
+																	   (click)="toDP2.toggle()"
+																	   [(ngModel)]="toDate2">
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="d-flex flex-column">
+												<small>Text</small>
+												<input type="text" class="default-fields container-fluid" [(ngModel)]="filterText">
+											</div>
+											<div class="d-flex flex-column">
+												<small>Website</small>
+												<select class="default-fields container-fluid" [(ngModel)]="currentWebsite">
+													<option value="any">
+														all
+													</option>
+													<option *ngFor="let websiteList of websiteList">
+														{{websiteList}}
+													</option>
+												</select>
+											</div>
+										</div>
+										<div class="footer d-flex justify-content-between align-items-center border">
+											<div (click)="cancelFilter()">
+												<small class="cancel-btn">
+													Cancel
+												</small>
+											</div>
+											<div>
+												<button class="btn reset" (click)="resetFilter()">
+													Reset
+												</button>
+												<button class="btn ok" (click)="updateViewCampagins()">
+													Ok
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div *ngFor="let campaign of viewCampaigns" class="row campaigns-card">
+									<div class="col-lg-6 col-sm-12">
+										<div class="row">
+											<div class="col-12 col-sm-3">
+												<img class="campaigns-card__icon" src="{{campaign.icon}}"/>
+											</div>
+											<div class="col-12 col-sm-9">
+												<a [routerLink]="['/push-details/' + campaign._id]"
+												   class="text_decoration_none">
+													<h4 class="">{{campaign.title || 'Campaign'}}</h4>
+												</a>
+												<h5 class="campaign-card__label">Sent: {{campaign.date}}</h5>
+												<a class="">
+													<h5 class="campaign-card__label">{{campaign.url}}</h5>
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6 col-sm-12">
+										<div class="row">
+											<div class="col-4">
+												<div class="m-widget24">
+													<div class="m-widget24__item">
+															<span
+																class="m-widget24__stats m--font-brand float-none m--marginless">
+																{{campaign.sended}}
+															</span><br>
+														<span class="m-widget24__desc m--marginless">
+																sent
+															</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="m-widget24">
+													<div class="m-widget24__item">
+														<span
+															class="m-widget24__stats m--font-brand float-none m--marginless">
+															{{campaign.delivered}}
+														</span><br>
+														<span class="m-widget24__desc m--marginless">
+															<span class="m-widget24__additional">
+																{{campaign.deliveredPercentage}}%
+															</span>
+															delivered
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="m-widget24">
+													<div class="m-widget24__item">
+														<span
+															class="m-widget24__stats m--font-brand float-none m--marginless">
+															{{campaign.clicks}}
+														</span><br>
+														<span class="m-widget24__desc m--marginless">
+															<span class="m-widget24__additional">
+																{{campaign.clicksPercentage}}%
+															</span>
+															clicks
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="campaigns" class="paginator-container">
+					<mat-paginator [length]="filteredCampaigns.length"
+								   [pageSize]="pageSize"
+								   [pageIndex]="pageIndex"
+								   [pageSizeOptions]="pageSizeOptions"
+								   (page)="pageEvent($event)">
+					</mat-paginator>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

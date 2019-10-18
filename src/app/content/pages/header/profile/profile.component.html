@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-xl-3 col-lg-4">
+    <div class="m-portlet m-portlet--full-height">
+      <div class="m-portlet__body">
+        <div class="m-card-profile">
+          <div class="m-card-profile__title m--hide">
+            Your Profile
+          </div>
+          <div class="m-card-profile__pic">
+            <div class="m-card-profile__pic-wrapper">
+				<label class="m-0" for="customFile"><img [src]="user.avatar || defaultAvatar" alt=""></label>
+				<input type="file" class="d-none" id="customFile" accept=".png, .jpg, .jpeg"
+					   (change)="fileChangeEvent($event)">
+            </div>
+          </div>
+          <div class="m-card-profile__details">
+            <span class="m-card-profile__name">{{user.fullName}}</span>
+            <a href="" class="m-card-profile__email m-link">{{user.email}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-9 col-lg-8">
+    <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
+      <div class="m-portlet__body">
+		  <ngb-tabset>
+			  <ngb-tab>
+				  <ng-template ngbTabTitle>Personal Details</ng-template>
+				  <ng-template ngbTabContent>
+					 <form class="m-form m-form--fit m-form--label-align-right">
+						  <div class="m-portlet__body">
+							  <div class="form-group m-form__group m--margin-top-10 m--hide">
+								  <div class="alert m-alert m-alert--default" role="alert">
+								  </div>
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <div class="col-10 ml-auto">
+									  <h3 class="m-form__section">Personal Details</h3>
+								  </div>
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <label for="example-text-input" class="col-2 col-form-label">Full Name</label>
+								  <div class="col-7">
+									  <input class="form-control m-input" type="text" name="fullName" [(ngModel)]="fieldsForEditing.fullName">
+								  </div>
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <label for="example-text-input" class="col-2 col-form-label">Phone No.</label>
+								  <div class="col-7">
+									  <input class="form-control m-input" type="text" name="phone" [(ngModel)]="fieldsForEditing.phone">
+								  </div>
+							  </div>
+
+						  </div>
+						  <div class="m-portlet__foot m-portlet__foot--fit">
+							  <div class="m-form__actions">
+								  <div class="row">
+									  <div class="col-2"></div>
+									  <div class="col-7">
+										  <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" (click)="saveChanges()">Save changes</button>&nbsp;&nbsp;
+
+										  <button class="btn btn-secondary m-btn m-btn--air m-btn--custom" (click)="resetChanges()">Cancel</button>
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+					  </form>
+				  </ng-template>
+			  </ngb-tab>
+			  <ngb-tab>
+				  <ng-template ngbTabTitle>
+					  Password settings
+				  </ng-template>
+				  <ng-template ngbTabContent>
+					  <form class="m-form m-form--fit m-form--label-align-right">
+						  <div class="m-portlet__body">
+							  <div class="form-group m-form__group m--margin-top-10 m--hide">
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <div class="col-10 ml-auto">
+									  <h3 class="m-form__section">Change password</h3>
+								  </div>
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <label for="example-text-input" class="col-3 col-form-label">Old password</label>
+								  <div class="col-7">
+									  <input type="password" class="form-control m-input"  name="passwordOld" [(ngModel)]="passwordFields.old">
+								  </div>
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <label for="example-text-input" class="col-3 col-form-label">New password</label>
+								  <div class="col-7">
+									  <input type="password" class="form-control m-input"  name="passwordNew" [(ngModel)]="passwordFields.new">
+								  </div>
+							  </div>
+							  <div class="form-group m-form__group row">
+								  <label for="example-text-input" class="col-3 col-form-label">Confirm password</label>
+								  <div class="col-7">
+									  <input type="password" class="form-control m-input" name="passwordConfirm" [(ngModel)]="passwordFields.confirm">
+								  </div>
+							  </div>
+
+						  </div>
+						  <div class="m-portlet__foot m-portlet__foot--fit">
+							  <div class="m-form__actions">
+								  <div class="d-flex justify-content-center">
+									  <div>
+										  <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom" (click)="changePassword()">Change password</button>&nbsp;&nbsp;
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+					  </form>
+				  </ng-template>
+			  </ngb-tab>
+		  </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>

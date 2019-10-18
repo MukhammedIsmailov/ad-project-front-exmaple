@@ -1,0 +1,102 @@
+<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+<div class="common-analytics">
+    <div class="m-widget__container">
+        <div class="m-widget14__header p-0">
+            <div class="row justify-content-between">
+                <div class="col-12 col-sm-4 col-lg-6">
+                    <div class="analytics-category__title d-flex align-items-center">
+                        <h3 class="m-widget14__title">
+                            {{selectedAnalyticsCategory.title}}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 p-0">
+            <div class="form-group m-form__group m--margin-top-10">
+                <label class="m--font-boldest">Select service</label>
+                <select class="form-control m-input" name="selectedService"
+                        [ngModel]="selectedService" (ngModelChange)="serviceSelectorChanged($event)">
+                    <ng-container *ngFor="let service of servicesInfo; index as i">
+                        <option [ngValue]="service" [attr.selected]="i === 0 ? true : null">
+                            {{service.name}}
+                        </option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 p-0">
+            <mat-checkbox checked class="analytics-countries__checkbox"
+                          (change)="getDataWithOrWithoutDate()"
+                          [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="openedSelectorDate">
+                Select date
+            </mat-checkbox>
+        </div>
+        <div class="col-12 analytics-countries__date-select d-flex flex-column justify-content-center align-items-center"
+             *ngIf="openedSelectorDate">
+            <p>Selected time: {{dateForShow}}</p>
+            <div class="col-auto services-send__date-selected">
+                <ngb-datepicker (click)="dateSelected()" #dp
+                                [ngModelOptions]="{standalone: true}"
+                                [maxDate]="maxDate"
+                                [(ngModel)]="selectedDate">
+                </ngb-datepicker>
+            </div>
+        </div>
+        <div class="col-12 statistics-table">
+            <div class="row statistics-table__head" *ngIf="viewCountriesStatistics.length">
+                <div class="col-1 statistics-table__title">
+                    <p class="text-center statistics-table__text">No</p>
+                </div>
+                <div class="col-5 statistics-table__title">
+                    <p class="statistics-table__text">Country</p>
+                </div>
+                <div class="col-2 statistics-table__title">
+                    <p class="text-center statistics-table__text">Sent</p>
+                </div>
+                <div class="col-2 statistics-table__title">
+                    <p class="text-center statistics-table__text">Delivered (%)</p>
+                </div>
+                <div class="col-2 statistics-table__title">
+                    <p class="text-center statistics-table__text">Clicks (%)</p>
+                </div>
+            </div>
+            <ng-container *ngFor="let statistics of viewCountriesStatistics; index as i">
+                <div class="row" [class.active-dark]="i%2 !== 0" [class.active-light]="i%2 === 0">
+                    <div class="col-1 statistics-table__value">
+                        <p class="text-center statistics-table__text">{{statistics.listNumber}}</p>
+                    </div>
+                    <div class="col-5 d-flex align-items-center">
+                        <p class="statistics-table__text"><img class="statistics-table__icon-flag"
+                                                               [src]="statistics.countryFlag"
+                                                               alt="Country flag">{{statistics.country}}</p>
+                    </div>
+                    <div class="col-2 statistics-table__value">
+                        <p class="text-center statistics-table__text">{{statistics.sent}}</p>
+                    </div>
+                    <div class="col-2 statistics-table__value">
+                        <p class="text-center statistics-table__text">{{statistics.delivered}}
+                            ({{statistics.percentageDelivered || 0}} %)</p>
+                    </div>
+                    <div class="col-2 statistics-table__value">
+                        <p class="text-center statistics-table__text">{{statistics.clicks}}
+                            ({{statistics.percentageClicks || 0}} %)</p>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div *ngIf="countriesStatistics && viewCountriesStatistics.length" class="paginator-container">
+            <mat-paginator [length]="countriesStatistics.length"
+                           [pageSize]="pageSize"
+                           [pageIndex]="pageIndex"
+                           [pageSizeOptions]="pageSizeOptions"
+                           (page)="pageEvent($event)">
+            </mat-paginator>
+        </div>
+        <div class="counties-statistic__no-data text-center" *ngIf="!countriesStatistics.length">
+            <p>No data for display</p>
+            <p>Please select another service or date</p>
+        </div>
+    </div>
+</div>

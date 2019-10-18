@@ -1,0 +1,68 @@
+<div>
+    <ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+    <div class="m-portlet">
+        <div class="m-widget14">
+            <div class="m-widget__container">
+                <ngb-tabset>
+                    <ngb-tab *ngFor="let service of servicesInfo">
+                        <ng-template ngbTabTitle>
+                            <div class="service-tab" (click)="selectService(service)">
+                                {{service.name}}
+                            </div>
+                        </ng-template>
+                        <ng-template ngbTabContent>
+                            <div class="mat-elevation-z8">
+                                <div class="container-fluid">
+                                    <div class="row campaign__names-properties" *ngIf="viewCampaignsTableData.length">
+                                        <div class="col-2 campaign__name-property">
+                                            <p>Icon</p>
+                                        </div>
+                                        <div class="col-4 campaign__name-property campaign__name-property_flex-start">
+                                            <p>Site</p>
+                                        </div>
+                                        <div class="col-3 campaign__name-property">
+                                            <p class="campaign__text-name-property">Count pushes</p>
+                                        </div>
+                                        <div class="col-3 campaign__name-property campaign__name-property_flex-start">
+                                            <p>Date creation</p>
+                                        </div>
+                                    </div>
+                                    <ng-container *ngFor="let campaign of viewCampaignsTableData">
+                                        <div class="row">
+                                            <span class="campaign__dividing-line"></span>
+                                        </div>
+                                        <div class="row campaign__campaign-properties">
+                                            <div class="col-12 col-sm-5 col-md-2 campaign__campaign-property">
+                                                <img class="campaign-icon" [src]="campaign.websiteIcon" alt="">
+                                            </div>
+                                            <div class="col-12 col-sm-7 col-md-4 campaign__campaign-property campaign__campaign-property_flex-start">
+                                                <p class="campaign__website-url m-0">
+                                                    <a [routerLink]="['/service-campaign/' + campaign._id]">{{campaign.websiteUrl}}</a>
+                                                </p>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-md-3 campaign__campaign-property">
+                                                <p class="campaign__website-pushes m-0"
+                                                   (click)="openCampaignModal(campaign)">{{campaign.pushNotifications.length}}</p>
+                                            </div>
+                                            <div class="col-12 col-sm-6 col-md-3 campaign__campaign-property campaign__campaign-property_flex-start">
+                                                <p class="m-0">{{campaign.date}}</p>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div *ngIf="filteredCampaigns" class="paginator-container">
+                                    <mat-paginator [length]="filteredCampaigns.length"
+                                                   [pageSize]="pageSize"
+                                                   [pageIndex]="pageIndex"
+                                                   [pageSizeOptions]="pageSizeOptions"
+                                                   (page)="pageEvent($event)">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div>
+    </div>
+</div>

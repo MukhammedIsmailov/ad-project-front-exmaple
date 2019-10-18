@@ -1,0 +1,20 @@
+:host {
+
+	.push-header {
+		padding: 10px;
+	}
+
+	.push-image__container {
+		height: 70px;
+		width: 70px;
+	}
+	.push-image__preview {
+		width: 100%;
+	}
+
+	table {
+		.active {
+			background-color: #dee6e4;
+		}
+	}
+}

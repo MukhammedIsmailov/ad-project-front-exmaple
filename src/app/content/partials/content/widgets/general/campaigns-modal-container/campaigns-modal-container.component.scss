@@ -1,0 +1,12 @@
+:host {
+  .dialog-container {
+    padding: 15px 15px 0 15px
+  }
+  .mat-dialog-title{
+    margin: 0;
+  }
+}
+
+:host /deep/ .mat-dialog-content{
+  margin: 0 -15px;
+}

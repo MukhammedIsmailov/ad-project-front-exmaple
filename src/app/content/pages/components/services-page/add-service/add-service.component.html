@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-12">
+        <div class="form-group m-form__group">
+            <div *ngIf="validationError.error" class="alert alert-danger"><span
+                    class="">{{validationError.error}}</span></div>
+            <label for="campaignName" class="m--font-boldest">Campaign name</label>
+            <input type="text" class="form-control m-input" id="campaignName" name="title"
+                   placeholder="Up from 5 to 50 characters and" minlength="5" maxlength="50"
+                   [(ngModel)]="newServiceName">
+        </div>
+    </div>
+    <div class="col-12">
+        <label for="campaignName" class="m--font-boldest">Campaign URL</label>
+        <div class="dropdown input-group-prepend add-service__url-campaign">
+            <div class="col-6 p-0">
+                <div class="input-group">
+                    <select class="form-control" [(ngModel)]="selectedProtocol">
+                        <option value="https://">HTTPS://</option>
+                        <option value="http://">HTTP://</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6 p-0">
+                <input class="form-control {{websiteUrl.valid ? 'border-success' : 'border-danger'}}"
+                       type="text"
+                       placeholder="enter URL" [formControl]="websiteUrl" (blur)="checkUrl()"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group m-form__group">
+            <mat-checkbox [(ngModel)]="isOptionOpen" (click)="createQueryNewService()">
+                Add options
+            </mat-checkbox>
+        </div>
+    </div>
+    <div class="col-12" *ngIf="isOptionOpen">
+        <div class="add-service__options d-flex justify-content-between w-100 flex-wrap align-items-center"
+             *ngIf="queryForShow">
+            <div class="col-8 p-0">
+                <p class="add-service__query-request">
+                    <span class="m--font-boldest">Query service: </span>{{queryForShow}}
+                </p>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center p-0">
+                <div class="add-service__remove-option" *ngIf="this.optionServiceArray.length">
+                    <button type="submit" class="btn btn-danger"
+                            (click)="removeOptionFromNewService()">
+                        Remove option
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group m-form__group">
+            <label for="optionServiceName" class="m--font-boldest">Set custom option subscriber</label>
+            <input type="text" class="form-control m-input" id="optionServiceName" name="title"
+                   placeholder="Set custom option subscriber for query" minlength="2" maxlength="40"
+                   [(ngModel)]="optionServiceName" (keyup)="validateAddServiceData()">
+        </div>
+        <div class="form-group m-form__group">
+            <label for="optionServiceValue" class="m--font-boldest">Select option subscriber</label>
+            <div class="input-group">
+                <select class="form-control" id="optionServiceValue" [(ngModel)]="optionServiceValue">
+                    <option *ngFor="let subscriberField of subscriberFields"
+                            [value]="subscriberField">{{subscriberField}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="add-service__add-option">
+            <button type="submit" class="btn btn-primary"
+                    (click)="addOptionToNewService()">
+                Add option
+            </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <label for="campaignName" class="m--font-boldest">Campaign response</label>
+        <ng-container *ngFor="let num of ['0', '1', '2', '3', '4']">
+            <div class="dropdown input-group-prepend add-service__response">
+                <div class="col-6 d-flex align-items-center justify-content-center pl-0 pr-2">
+                    <input class="form-control" type="text" placeholder="Enter response field"
+                           [(ngModel)]="responseFieldsObject[serviceFields[num]]"
+                           (keyup)="validatorResponseFields(serviceFields[num])">
+                </div>
+                <div class="col-6 d-flex align-items-center pl-2">
+                    <p class="m-0">is the {{serviceFields[num]}} field</p>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col-12">
+        <div class="add-service__submit-and-reset">
+            <button type="submit" class="btn btn-primary mr-3 add-service__btn-submit"
+                    (click)="addNewService()">
+                Add service
+            </button>
+            <button type="reset" class="btn btn-secondary"
+                    (click)="clearPolesAddService()">
+                Clear all
+            </button>
+        </div>
+    </div>
+</div>

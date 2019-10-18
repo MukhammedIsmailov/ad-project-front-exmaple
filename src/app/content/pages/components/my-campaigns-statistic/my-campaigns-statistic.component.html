@@ -1,0 +1,61 @@
+<div class="m-portlet ">
+	<div class="m-portlet__body  m-portlet__body--no-padding">
+		<div class="row m-row--no-padding m-row--col-separator-xl">
+			<div class="col-md-12 col-lg-6 col-xl-3 d-flex justify-content-center align-items-center m--padding-15">
+				<div class="m-widget24">
+					<div class="m-widget24__item">
+						<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				            {{campaignStatistic.activeSubscribers || '0'}}
+				        </span><br>
+						<span class="m-widget24__desc m--marginless">
+				            active subscribers
+				        </span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-3 d-flex justify-content-center align-items-center m--padding-15">
+				<!--begin::Campaigns-->
+				<div class="m-widget24">
+					<div class="m-widget24__item">
+						<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				            {{campaignStatistic.campaigns || '0'}}
+				        </span><br>
+						<span class="m-widget24__desc m--marginless">
+				            campaigns
+				        </span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-3 d-flex justify-content-center align-items-center m--padding-15">
+				<div class="m-widget24">
+					<div class="m-widget24__item">
+						<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				            {{campaignStatistic.delivered || '0'}}
+				        </span><br>
+						<span class="m-widget24__desc m--marginless">
+							<span class="m-widget24__additional">
+								{{campaignStatistic.deliveredPercentage || '0'}}%
+				            </span>
+				            delivered
+				        </span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-6 col-xl-3 d-flex justify-content-center align-items-center m--padding-15">
+				<div class="m-widget24">
+					<div class="m-widget24__item">
+						<span class="m-widget24__stats m--font-brand float-none m--marginless">
+							{{campaignStatistic.clicks || '0'}}
+				        </span><br>
+						<span class="m-widget24__desc m--marginless">
+							<span class="m-widget24__additional">
+								 {{campaignStatistic.clicksPercentage || '0'}}%
+				            </span>
+				            clicks
+				        </span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+:host {
+  *{
+    font-weight: 400;
+  }
+  .analytics-category__title {
+    position: relative;
+    height: 60px;
+  }
+
+  .statistics-table {
+    margin-top: 15px;
+  }
+
+  .statistics-table__title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .statistics-table__value{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .statistics-table__text{
+    margin-top: 15px;
+  }
+
+  .analytics-countries__checkbox,
+  .analytics-countries__date-select{
+    margin-top: 15px;
+  }
+
+  .statistics-table__icon-flag{
+    margin-right: 15px;
+  }
+
+  .active-dark{
+    background-color: #F7F7F7;
+  }
+
+  .active-light{
+    background-color: #f0f0f0;
+  }
+
+  .counties-statistic__no-data{
+    margin-top: 15px;
+    font-size: 1.25rem;
+    color: #716aca;
+  }
+}

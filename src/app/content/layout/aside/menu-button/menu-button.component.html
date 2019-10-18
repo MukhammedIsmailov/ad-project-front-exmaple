@@ -1,0 +1,6 @@
+
+	<a class="m-menu__button-link"[routerLink]="item.page">
+		<i *ngIf="menuAsideMinimized && item.icon" class="m-menu__link-icon" [ngClass]="item.icon"></i>
+		<span *ngIf="!menuAsideMinimized" class="m-menu__link-text m-menu__button-text" [translate]="item.translate">{{item.buttonTitle}}</span>
+	</a>
+

@@ -1,0 +1,128 @@
+input, select, textarea {
+	display: block;
+	width: 70%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+textarea {
+	min-height: 150px;
+}
+
+.vl {
+	border-left: 2px solid #43ca75;
+	flex-grow: 1;
+}
+
+.add-automation {
+	border: 1px solid #ddd;
+	padding: 25px;
+
+	.input-field {
+		justify-content: space-between;
+		margin-top: 20px;
+		&:first-child {
+			margin-top: 0;
+		}
+		span {
+			color: #5d5858;
+		}
+	}
+}
+
+.automation-navbar {
+	width: calc(100% - 255px - 20px);
+	margin-right: 0;
+}
+@media (max-width: 768px) {
+	.automation-navbar {
+		width: 100%;
+	}
+}
+
+.steps-container {
+	margin-top: 25px;
+	justify-content: space-between;
+	.step {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 35px;
+		height: 35px;
+		font-size: 22px;
+		font-weight: bold;
+		color: white;
+		background: #43ca75;
+		border: 2px solid white;
+		border-radius: 100%;
+		&:first-child {
+			margin-bottom: 10px
+		}
+		&:last-child {
+			margin-top: 10px
+		}
+	}
+	.step-wrapper {
+		width: 92%;
+		.step-form {
+			width: 100%;
+			border: 1px solid #ddd;
+			.container {
+				padding: 15px;
+			}
+			.step-header {
+				background: #f5f5f5;
+				border-bottom: 1px solid #ddd;
+				padding: 10px;
+				.time {
+					color: #0B99B2;
+					border-bottom: 1px dotted;
+					margin: 0;
+				}
+			}
+			.step-content {
+				width: 50%;
+				background: #f5f5f5;
+				border: 1px solid #ddd;
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				p {
+					font-weight: bold;
+				}
+			}
+			.in {
+				height: 25px;
+				padding: 6px 12px;
+				width: 60px;
+				font-size: 14px;
+				line-height: 1.42857143;
+				color: #555;
+				background-color: #fff;
+				background-image: none;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+				transition: border-color ease-in-out .15s,
+				boxshadow ease-in-out .15s;
+			}
+
+			select.in {
+				width: 80px;
+				margin-right: 350px;
+			}
+		}
+	}
+}
+

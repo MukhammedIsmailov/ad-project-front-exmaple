@@ -1,0 +1,23 @@
+<div class="m-portlet">
+    <div class="m-widget14">
+        <div class="m-widget__container">
+            <ngb-tabset>
+                <ngb-tab *ngFor="let analyticsCategory of analyticsInfo">
+                    <ng-template ngbTabTitle>
+                        <div class="analytics-tab" (click)="selectAnalyticsCategory(analyticsCategory)">
+                            {{analyticsCategory.name}}
+                        </div>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <ng-container *ngIf="analyticsCategory.id === 11">
+                            <m-common-analytics [selectedAnalyticsCategory]="selectedAnalyticsCategory"></m-common-analytics>
+                        </ng-container>
+                        <ng-container *ngIf="analyticsCategory.id === 22">
+                            <m-countries-analytics [selectedAnalyticsCategory]="selectedAnalyticsCategory"></m-countries-analytics>
+                        </ng-container>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+<div class="common-analytics">
+    <div class="m-widget__container">
+        <div class="m-widget14__header p-0">
+            <div class="row justify-content-between">
+                <div class="col-12 col-sm-4 col-lg-6">
+                    <div class="analytics-category__title">
+                        <h3 class="m-widget14__title">
+                            {{selectedAnalyticsCategory.title}}
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-8 col-lg-6">
+                    <div class="row justify-content-lg-end justify-content-sm-end justify-content-end align-content-center">
+                        <mat-form-field class="recent-campaigns-chart__selector">
+                            <mat-select [(value)]="periodFilter"
+                                        (selectionChange)="periodSelectorChanged($event)">
+                                <mat-option *ngFor="let period of periods"
+                                            [value]="period.value">
+                                    {{ period.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 p-0">
+            <div class="form-group m-form__group m--margin-top-10">
+                <label class="m--font-boldest">Select service</label>
+                <select class="form-control m-input" name="selectedService"
+                        [ngModel]="selectedService" (ngModelChange)="serviceSelectorChanged($event)">
+                    <ng-container *ngFor="let service of servicesInfo; index as i">
+                        <option [ngValue]="service" [attr.selected]="i === 0 ? true : null">
+                            {{service.name}}
+                        </option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+        <canvas *ngIf="chartLabels" baseChart
+                [datasets]="chartData"
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [legend]="chartLegend"
+                [chartType]="chartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+    </div>
+
+    <div class="row m-row--no-padding justify-content-center recent-campaigns-chart__statistics-row">
+        <div class="col-6 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+            <div class="m-widget24">
+                <div class="m-widget24__item common-analytics__cards-statistics">
+                <span class="m-widget24__stats m--font-brand float-none m--marginless">
+                    {{cardsStatistics?.notifications}}
+                </span>
+                    <span class="m-widget24__desc m--marginless text-center">
+                    campaigns
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+            <div class="m-widget24">
+                <div class="m-widget24__item common-analytics__cards-statistics">
+                <span class="m-widget24__stats m--font-brand float-none m--marginless">
+                    {{cardsStatistics?.sent}}
+                </span>
+                    <span class="m-widget24__desc m--marginless">
+                    sent
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+            <div class="m-widget24">
+                <div class="m-widget24__item common-analytics__cards-statistics">
+                <span class="m-widget24__stats m--font-brand float-none m--marginless">
+                    {{cardsStatistics?.delivered}}
+                </span>
+                    <span class="m-widget24__desc m--marginless text-center">
+                    <span class="m-widget24__additional">
+                        {{cardsStatistics?.deliveredPercentage}}%
+                    </span>
+                    delivered
+                </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+            <div class="m-widget24">
+                <div class="m-widget24__item common-analytics__cards-statistics">
+                <span class="m-widget24__stats m--font-brand float-none m--marginless">
+                    {{cardsStatistics?.clicks}}
+                </span>
+                    <span class="m-widget24__desc m--marginless">
+                    <span class="m-widget24__additional">
+                        {{cardsStatistics?.clicksPercentage}}%
+                    </span>
+                    clicks
+                </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<h3 class="m-portlet__head-text">
+	Website settings
+</h3>
+
+<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+
+<div class="m-portlet">
+	<div class="m-widget16">
+		<div class="m-widget__container">
+			<div class="form-group row">
+				<label for="site-url" class="col-sm-4 col-form-label field-label">Website URL:</label>
+				<div class="col-sm-8">
+					<p class="form-control-plaintext" id="site-url">{{website.url}}</p>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="site-url" class="col-sm-4 col-form-label field-label">Website image:</label>
+				<div class="media col-sm-8">
+					<div class="media-left">
+						<label for="site-image">
+							<mat-spinner *ngIf="loadingImageSpinner"></mat-spinner>
+							<img *ngIf="!loadingImageSpinner" class="site-image__preview"
+								 [src]="website.icon || defaultSiteImageUrl" alt="">
+						</label>
+					</div>
+					<div class="media-body">
+						<button
+							class="btn-sm btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase site-image__button">
+							<input type="file" class="site-image__input" id="site-image"
+								   accept=".png, .jpg, .jpeg" (change)="siteImageChanged($event)">
+							Choose the image
+						</button>
+						<p>Recommended size: 128*128px. File format: JPG, PNG, GIF till 200KB</p>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between general-actions">
+				<div class="d-flex flex-column">
+					<button id="save-setting-button" class="btn btn-success" (click)="generalClickedSave()">Save
+					</button>
+				</div>
+				<div class="d-flex flex-column">
+					<a href="#" class="btn btn-link text-decoration-none">
+						<span class="dotted text-danger" (click)="generalClickedDelete()">Delete website</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="m-portlet">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<h2 class="m-portlet__head-text">
+					<span>Push website code</span>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="m-portlet__body">
+		<p>Copy and paste code into your website template before the closing <code>&lt;/head&gt;</code> tag</p>
+		<code>&lt;script charset="UTF-8" src="{{website.linkForSWRegistrator}}" async&gt;&lt;/script&gt;</code>
+		<div class="js-result-text" hidden>
+			<div class="bold small color-success">
+				<span class="glyphicon glyphicon-ok-sign"></span> Code was added correctly
+			</div>
+		</div>
+		<div class="js-result-text" hidden>
+			<div class="bold small color-danger">
+				<span class="glyphicon glyphicon-remove-sign"></span> Not integrated
+			</div>
+		</div>
+	</div>
+</div>
+<div class="m-portlet">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<h2 class="m-portlet__head-text">
+					<span>Setup files</span>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="m-portlet__body">
+		<p>Download the setup files below. Unzip the archive and upload the files
+			into the top-level directory (<samp> root <!-- SAMP-->, or '<samp>/<!-- SAMP--> ') of your
+				website.</samp></samp></p>
+		<p>
+			<a [href]="website.linkForSW"
+			   class="btn btn-default">
+				<i class="flaticon-download"></i>
+				Download the setup files </a>
+		</p>
+		<div class="js-result-text" hidden>
+			<div class="bold small color-success">
+				<span class="glyphicon glyphicon-ok-sign"></span>
+				Files <samp>service-worker.js</samp>, are installed
+			</div>
+		</div>
+		<div class="js-result-text" hidden>
+			<div class="bold small color-danger">
+				<span class="glyphicon glyphicon-remove-sign"></span>
+				File not found <samp>service-worker.js</samp>,
+			</div>
+		</div>
+	</div>
+</div>
+
+

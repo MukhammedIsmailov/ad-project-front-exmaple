@@ -1,0 +1,141 @@
+:host {
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .campaign-data__urls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    border-bottom: 1px solid #f2f3f4;
+  }
+
+  .campaign-data-status {
+    padding: 20px 0;
+    border-bottom: 1px solid #f2f3f4;
+  }
+
+  .campaign-data-status__value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .campaign-data__main-statistics {
+    padding: 20px 0 0 0;
+  }
+
+  .campaign-data__description {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 100;
+    color: #9699a2;
+  }
+
+  .campaign-data__value {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .campaign-data__value-text {
+    font-size: 1.25rem;
+    color: #716aca;
+  }
+
+  .campaign-data__value-text a {
+    color: #716aca;
+  }
+
+  .campaign-data__value-number {
+    font-size: 1.75rem;
+    color: #716aca;
+  }
+
+  .campaign-data-status__value-text{
+    padding: 7px 0;
+  }
+
+  .campaign-data-status__change{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // date creation
+
+  .campaign-date-creation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px 30px 30px;
+    border-bottom: 1px solid #f2f3f4;
+  }
+
+  // notifications
+
+  .campaign-data__notification-not-send{
+    position: relative;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  .campaign-data__notification-properties{
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid #f2f3f4;
+  }
+
+  .notification-properties__text-property{
+    text-align: start;
+  }
+
+  .mat-elevation-z8 {
+    box-shadow: none;
+    width: 100%;
+    padding: 30px 0 0 0;
+  }
+
+  .campaign-data__notifications-data{
+    padding: 5px 0;
+    border-bottom: 1px solid #f2f3f4;
+  }
+
+  .notifications-data__property{
+    display: flex;
+    align-items: center;
+  }
+
+  .notifications-data__property-icon,
+  .notifications-data__property-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .notifications-data__icon{
+    position: relative;
+    width: 75px;
+  }
+
+  // delete campaign
+
+  .delete-confirm__text{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 0 0 30px 0;
+  }
+
+  .campaign-data__delete-campaign{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .delete-confirm__button-no{
+    margin-left: 30px;
+  }
+
+}

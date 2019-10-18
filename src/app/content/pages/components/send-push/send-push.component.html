@@ -1,0 +1,375 @@
+<div class="m-portlet m-portlet--head-sm" m-portlet="true" id="m_portlet_tools_5">
+    <div class="m-portlet__head">
+        <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon">
+							<i class="flaticon-alert"></i>
+						</span>
+                <h3 class="m-portlet__head-text">
+                    Send a Push Notification
+                </h3>
+            </div>
+        </div>
+    </div>
+    <!--begin::Form-->
+    <div class="m-form m-form--fit m-form--label-align-right send-push-block">
+        <div class="m-portlet__body">
+            <div class="form-group m-form__group m--margin-top-10">
+                <label class="m--font-boldest">Select website</label>
+                <select class="form-control m-input" name="selectedWebsite"
+                        (change)="onSelectWebsite($event.target.value)"
+                        [(ngModel)]="selectedValue">
+                    <option value="All websites">
+                        All websites ({{countOfAllSubscribers}} subscribers)
+                    </option>
+                    <option *ngFor="let website of websites" value="{{website._id}}">
+                        {{website.url}} ({{website.subscribers.length}} subscribers)
+                    </option>
+                </select>
+            </div>
+
+
+            <div class="form-group m-form__group m--margin-top-10">
+                <mat-checkbox class="" [ngModelOptions]="{standalone: true}" [(ngModel)]="openedSegment"
+                              (click)="segmentedCheckClicked()">
+                    Segment the list
+                </mat-checkbox>
+            </div>
+            <div *ngIf="openedSegment" class="m-portlet m-portlet--head-sm" m-portlet="true">
+                <div class="m-portlet__body">
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">Saved filters:</label>
+                        <div class="row">
+                            <div class="col-11">
+                                <select class="form-control m-input" name="selectedFilter"
+                                        (change)="onSelectFilter($event.target.value)">>
+                                    <option *ngFor="let filter of filters" value="{{filter._id}}">{{filter.label ||
+                                    'Select segment'}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div *ngIf="selectedFilter._id" class="col-1">
+                                <i class="flaticon-delete" (click)="clickedDeleteFilter()"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">Browser language:</label>
+                        <ng-multiselect-dropdown
+                                [placeholder]="'Select language'"
+                                [data]="languages"
+                                [(ngModel)]="selectedFilter.language"
+                                [settings]="languageSelectorSettings"
+                                [ngModelOptions]="{standalone: true}">
+                        </ng-multiselect-dropdown>
+                    </div>
+
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">Regions:</label>
+                        <ng-multiselect-dropdown
+                                [placeholder]="'Select regions'"
+                                [data]="regionsList"
+                                [(ngModel)]="selectedRegions"
+                                [settings]="regionSelectorSettings"
+                                [ngModelOptions]="{standalone: true}"
+                                (onSelect)="onSelectRegion()"
+                                (onDeSelect)="onDeSelectRegion()"
+                                (onSelectAll)="onSelectAllRegions($event)"
+                                (onDeSelectAll)="onDeSelectAllRegions($event)"
+                        >
+                        </ng-multiselect-dropdown>
+                    </div>
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">Operators:</label>
+                        <ng-multiselect-dropdown
+                                [placeholder]="'Select operators'"
+                                [data]="operatorsList"
+                                [(ngModel)]="selectedFilter.operator"
+                                [settings]="operatorSelectorSettings"
+                                [ngModelOptions]="{standalone: true}"
+                        >
+                        </ng-multiselect-dropdown>
+                    </div>
+
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">Subscription date:</label>
+                        <div class="row justify-content-start">
+                            <div class="col-4">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" disabled="true" type="button">from
+                                                </button>
+                                            </div>
+                                            <input class="form-control"
+                                                   placeholder="yyyy-mm-dd"
+                                                   name="dp"
+                                                   ngbDatepicker
+                                                   #fromDP="ngbDatepicker"
+                                                   (click)="fromDP.toggle()"
+                                                   (dateSelect)="fromDateSelected($event)"
+                                                   [(ngModel)]="fromDate">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-4">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" disabled="true" type="button">to
+                                                </button>
+                                            </div>
+                                            <input class="form-control"
+                                                   placeholder="yyyy-mm-dd"
+                                                   name="dp"
+                                                   ngbDatepicker
+                                                   #toDP="ngbDatepicker"
+                                                   (click)="toDP.toggle()"
+                                                   (dateSelect)="toDateSelected($event)"
+                                                   [(ngModel)]="toDate">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">Browsers:</label>
+                        <div class="row">
+                            <div *ngFor="let browser of browsers" class="col-3">
+                                <mat-checkbox class="" [checked]="isArrayContainsValue(selectedFilter.browser, browser)"
+                                              (change)="changedBrowserCheckbox($event, browser)">{{browser}}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <label class="m--font-boldest">OS:</label>
+                        <div class="row">
+                            <div *ngFor="let os of osystems" class="col-3">
+                                <mat-checkbox class="" [checked]="isArrayContainsValue(selectedFilter.os, os)"
+                                              (change)="changedOSCheckbox($event, os)">{{os}}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-form__group m--margin-top-10">
+                        <button class="btn btn-primary" (click)="openSaveFilterDialog()">Save filter</button>
+                    </div>
+
+                    <div *ngIf="openedSaveFilterDialog" class="form-group m-form__group">
+                        <label class="m--font-boldest">Filter name</label>
+                        <input type="url" class="form-control m-input" [ngModelOptions]="{standalone: true}"
+                               [(ngModel)]="newFilterName">
+                        <div class="m-form__actions">
+                            <button class="btn btn-primary" (click)="clickedSaveFilter()">Save</button>
+                            <button class="btn btn-secondary" (click)="clickedUndoFilterSave()">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group m-form__group">
+                <label for="notificationTitle" class="m--font-boldest">Push Notification Title</label>
+                <textarea type="text" class="form-control m-input" id="notificationTitle" name="title"
+                          placeholder="up to 50 characters" maxlength="50"
+                          [(ngModel)]="notification.title"></textarea>
+            </div>
+            <div class="form-group m-form__group">
+                <label for="notificationText" class="m--font-boldest">Push Notification text</label>
+                <textarea type="text" class="form-control m-input" id="notificationText" name="text"
+                          placeholder="up to 125 characters" maxlength="125"
+                          [(ngModel)]="notification.text"></textarea>
+            </div>
+            <div class="form-group m-form__group">
+                <label for="notificationLink" class="m--font-boldest">Pusn Notification link</label>
+                <input type="url" class="form-control m-input" id="notificationLink" name="link"
+                       [(ngModel)]="notification.link">
+            </div>
+            <div class="form-group m-form__group">
+                <mat-checkbox [(ngModel)]="isOpen">
+                    Replace the standard website image
+                </mat-checkbox>
+            </div>
+            <div [@openClose]="isOpen" class="form-group m-form__group push-icon-container">
+                <div class="media">
+                    <div class="media-left">
+                        <label for="push-icon">
+                            <img
+                                    [src]="iconSource || (selectedWebsiteObj && selectedWebsiteObj.icon) || defaultPushImageUrl"
+                                    alt="website icon" class="push-icon__preview">
+                        </label>
+                    </div>
+                    <div class="media-body">
+                        <button
+                                class="btn-sm btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase push-image__button">
+                            <input #icon type="file" class="push-image__input" id="push-icon" name="icon"
+                                   accept=".png, .jpg, .jpeg"
+                                   (change)="fileChangeEvent($event)">
+                            Choose file
+                        </button>
+                        <button *ngIf="iconSource"
+                                class="btn-sm btn-default m-btn m-btn--custom"
+                                (click)="clearIcon()">
+                            Clear
+                        </button>
+                        <p *ngIf="!isIconValid" class=" alert alert-danger">Please, choose another image</p>
+                        <p [class.alert-danger]="!isIconValid">Recommended size: 300*200px. File format: JPG, PNG, GIF
+                            till 200KB</p>
+                    </div>
+                    <image-cropper
+                            [imageChangedEvent]="iconChangedEvent"
+                            [maintainAspectRatio]="true"
+                            [aspectRatio]="4 / 4"
+                            [resizeToWidth]="128"
+                            format="png"
+                            style="max-height: 33vh"
+                            (imageCropped)="iconCropped($event)"
+                    ></image-cropper>
+                </div>
+            </div>
+            <div class="form-group m-form__group">
+                <label class="push-image__title">
+                    <span class>Add large image</span><br>
+                </label>
+                <div class="media">
+                    <div class="media-left">
+                        <label for="push-image">
+                            <img class="push-image__preview" [src]="source || defaultPushImageUrl"
+                                 alt="">
+                        </label>
+                    </div>
+                    <div class="media-body">
+                        <button
+                                class="btn-sm btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase push-image__button">
+                            <input #image type="file" class="push-image__input" id="push-image" name="image"
+                                   accept=".png, .jpg, .jpeg"
+                                   (change)="fileChangeEvent($event)">
+                            Choose file
+                        </button>
+                        <button *ngIf="source"
+                                class="btn-sm btn-default m-btn m-btn--custom"
+                                (click)="clearImage()"
+                        >
+                            Clear
+                        </button>
+                        <p *ngIf="!isImageValid" class=" alert alert-danger">Please, choose another image</p>
+                        <p [class.alert-danger]="!isImageValid">Recommended size: 300*200px. File format: JPG, PNG, GIF
+                            till 200KB</p>
+                    </div>
+                </div>
+                <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="300"
+                        format="png"
+                        style="max-height: 33vh"
+                        (imageCropped)="imageCropped($event)"
+                ></image-cropper>
+            </div>
+
+        </div>
+        <div class="m-portlet__foot m-portlet__foot--fit">
+            <div class="m-form__actions schedule-for-later">
+                <div class="form-group m-form__group schedule-for-later__checkboxes"
+                     [class.schedule-for-later__checkboxes-active]="!checkedDuplicate && !checkedDateDelay && !checkedSendingAtIntervals">
+                    <mat-checkbox class="push-send__checkbox"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [(ngModel)]="checkedDuplicate">
+                        Duplicate
+                    </mat-checkbox>
+                    <mat-checkbox class="push-send__checkbox"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [(ngModel)]="checkedDateDelay">
+                        Delayed dispatch
+                    </mat-checkbox>
+                    <mat-checkbox class="push-send__checkbox"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [(ngModel)]="checkedSendingAtIntervals">
+                        Sending at intervals
+                    </mat-checkbox>
+                </div>
+                <div class="m-form__actions"
+                     *ngIf="checkedDuplicate || checkedDateDelay || checkedSendingAtIntervals">
+                    <div class="row justify-content-center flex-wrap">
+                        <div class="col-12 d-flex justify-content-center align-items-center push-send__duplicate"
+                             [class.push-send__duplicate-active]="checkedDateDelay || checkedSendingAtIntervals"
+                             *ngIf="checkedDuplicate">
+                            <div class="push-send__duplicate-text">Duplications:</div>
+                            <form class="push-send__duplicate-form count-form">
+                                <span class="count-form__button count-form__decrement"
+                                      (click)="decrementDuplicateCount()"></span>
+                                <input type="number" class="count-form__input"
+                                       name="duplicateCount"
+                                       #countDuplicate
+                                       [(ngModel)]="duplicateCount"
+                                       (change)="validateDuplicateCount(countDuplicate.value)"
+                                       (keyup)="validateDuplicateCount(countDuplicate.value)">
+                                <span class="count-form__button count-form__increment"
+                                      (click)="incrementDuplicateCount()"></span>
+                            </form>
+                        </div>
+
+                        <div class="col-12 col-md-6 d-flex flex-wrap align-content-center justify-content-center"
+                             *ngIf="checkedDateDelay">
+                            <div class="col-12 text-center m--font-bold m--padding-5 push-send__date-time-text">
+                                Selected time: {{dateForShow}}</div>
+                            <div class="col-auto push-send__date-selected">
+                                <ngb-datepicker (click)="dateSelected()" #dp
+                                                [ngModelOptions]="{standalone: true}"
+                                                [minDate]="minDate"
+                                                [(ngModel)]="selectedDate">
+                                </ngb-datepicker>
+                            </div>
+                            <div class="col-auto push-send__time-selected">
+                                <ngb-timepicker (click)="pickerClicked()" (keydown)="pickerClicked()"
+                                                (ngModelChange)="pickerClicked()" (change)="pickerClicked()"
+                                                [ngModelOptions]="{standalone: true}"
+                                                [(ngModel)]="selectedTime"></ngb-timepicker>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 d-flex flex-wrap
+                                            align-content-start justify-content-center push-send__selected-interval"
+                             *ngIf="checkedSendingAtIntervals">
+                            <div class="col-12 text-center m--font-bold m--padding-5 push-send__date-time-text">
+                                Selected interval of: {{showInterval}}</div>
+                            <div class="col-12 push-send__time-selected push-send__time-selected-interval">
+                                <form class="push-send__duplicate-form count-form">
+                                <span class="count-form__button count-form__decrement"
+                                      (click)="decrementNumberIntervals()"></span>
+                                    <input #countIntervals type="number" class="count-form__input"
+                                           name="duplicateCount" [(ngModel)]="numberIntervals"
+                                           (change)="validateNumberIntervals(countIntervals.value)"
+                                           (keyup)="validateNumberIntervals(countIntervals.value)">
+                                    <span class="count-form__button count-form__increment"
+                                          (click)="incrementNumberIntervals()"></span>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-12" *ngIf="showErrorDate">
+                            <p class="error-date-selected">
+                                {{errorMessageText}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="send-push__submit-and-reset">
+                    <button type="submit" class="btn btn-primary mr-3 send-push__btn-submit" (click)="sendPush()">Send
+                    </button>
+                    <button type="reset" class="btn btn-secondary" (click)="clearAndClose()">Clear all</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Form-->
+</div>

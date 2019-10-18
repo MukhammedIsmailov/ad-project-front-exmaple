@@ -1,0 +1,54 @@
+<div class="dropdown input-group-prepend w-100">
+	<div class="input-group">
+		<div class="input-group-prepend">
+			<label class="input-group-text">Select Protocol</label>
+		</div>
+		<select class="form-control" [(ngModel)]="selectedProtocol">
+			<option value="https://">HTTPS://</option>
+			<option value="http://">HTTP://</option>
+		</select>
+	</div>
+	<input class="form-control {{websiteUrl.valid ? 'border-success' : 'border-danger'}}" type="text"
+		   placeholder="enter URL" [formControl]="websiteUrl" (blur)="checkUrl()"/>
+</div>
+<div *ngIf="validationError.error" class="alert alert-danger"><span class="">{{validationError.error}}</span></div>
+<div class="m-portlet m-portlet--creative m-portlet--bordered-semi">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<h2 class="m-portlet__head-label m-portlet__head-label--accent">
+					<span>General Website Settings</span>
+				</h2>
+			</div>
+		</div>
+
+	</div>
+	<div class="m-portlet__body">
+		<h3 class="m-portlet__head-text">
+			Website image
+		</h3>
+		<image-cropper
+			[imageChangedEvent]="imageChangedEvent"
+			[maintainAspectRatio]="true"
+			[aspectRatio]="4 / 3"
+			[resizeToWidth]="128"
+			format="png"
+			style="max-height: 33vh"
+			(imageCropped)="imageCropped($event)"
+		></image-cropper>
+		<img [src]="source || defaultImg"
+			 style="height: 100px; width: 100px"/>
+		<div class="form-group m-form__group">
+			<label>Choose an image</label>
+			<div></div>
+			<div class="custom-file">
+				<input type="file" class="custom-file-input" id="customFile" accept=".png, .jpg, .jpeg"
+					   (change)="fileChangeEvent($event)">
+				<label class="custom-file-label" for="customFile">Choose file</label>
+			</div>
+		</div>
+	</div>
+</div>
+<button class="btn btn-success m-btn--wide" (click)="addWebSiteToDataBase()"
+		[disabled]="!websiteUrl.valid || !isUrlValid">Next
+</button>

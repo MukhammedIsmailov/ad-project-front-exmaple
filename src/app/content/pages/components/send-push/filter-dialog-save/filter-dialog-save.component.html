@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+	<p>Input name</p>
+	<mat-form-field>
+		<input matInput [(ngModel)]="filterName">
+	</mat-form-field>
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="onSaveClick()">Save</button>
+	<button mat-button (click)="onCloseClick()">Close</button>
+</div>

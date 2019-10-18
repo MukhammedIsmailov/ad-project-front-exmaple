@@ -1,0 +1,28 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader" [hidden]="subheaderService.disabled$ | async">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title" [ngClass]="{ 'm-subheader__title--separator': (subheaderService.breadcrumbs$ | async)?.length > 0 }">
+				{{subheaderService.title$ | async}}
+			</h3>
+			<!--<ul *ngIf="(subheaderService.breadcrumbs$ | async)?.length > 0" class="m-subheader__breadcrumbs m-nav m-nav&#45;&#45;inline">-->
+				<!--<li class="m-nav__item m-nav__item&#45;&#45;home">-->
+					<!--<a href="javascript:;" routerLink="/" class="m-nav__link m-nav__link&#45;&#45;icon">-->
+						<!--<i class="m-nav__link-icon la la-home"></i>-->
+					<!--</a>-->
+				<!--</li>-->
+				<!--<ng-container *ngFor="let item of subheaderService.breadcrumbs$ | async">-->
+					<!--<li class="m-nav__separator">-</li>-->
+					<!--<li class="m-nav__item">-->
+						<!--<a href="javascript:;" [routerLink]="item.page" [queryParams]="item.queryParams" class="m-nav__link">-->
+							<!--<span class="m-nav__link-text" [translate]="item.translate">-->
+								<!--{{item.title}}-->
+							<!--</span>-->
+						<!--</a>-->
+					<!--</li>-->
+				<!--</ng-container>-->
+			<!--</ul>-->
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->

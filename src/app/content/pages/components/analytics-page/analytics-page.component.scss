@@ -1,0 +1,31 @@
+:host {
+
+  .analytics-tab{
+    padding: .5rem 1rem;
+  }
+
+  /deep/ .nav-link {
+    padding: 0;
+  }
+
+  .analytics-category__title{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .analytics-category__button-toggle{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .common-analytics__cards-statistics{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,88 @@
+:host {
+	.site__actions-row {
+		margin: 0 0 20px;
+		.btn {
+			margin-right: 10px;
+		}
+	}
+
+	.statistics-row {
+		.m-widget24 {
+			text-align: center;
+			height:100%;
+		}
+	}
+
+	.m-widget14 {
+		padding: 0;
+	}
+
+	.m-widget__container {
+		padding: 2.2rem;
+	}
+
+	.m-widget14__title{
+		min-height: 40px;
+		font-size: 1.4rem;
+		font-weight: bold;
+	}
+
+	.period-statistics {
+		.period-statistics__parameter {
+			font-weight: bold;
+			padding-left: 10px;
+		}
+	}
+
+	.subscribers-table {
+		width: 100%;
+
+		th {
+			font-size: 16px;
+			font-weight: bold;
+			color: black;
+			background-color: #F4F4F4;
+		}
+
+		tr {
+			font-size: 16px;
+		}
+
+		.mat-row {
+			height: 60px;
+		}
+
+		.mat-cell {
+			font-size: 16px;
+			color: black;
+		}
+
+		.actions-td {
+			text-align: right;
+		}
+
+		.badge-status {
+			width: 10px;
+			height: 10px;
+			padding: 0;
+			margin-right: 2px;
+			background-color: #B0B0B0;
+		}
+
+		.status-green {
+			background-color: green;
+			color: green;
+		}
+
+		.status-red {
+			background-color: red;
+			color: red;
+		}
+
+		.small-description {
+			font-size: 85%;
+			color: #777;
+		}
+	}
+}
+

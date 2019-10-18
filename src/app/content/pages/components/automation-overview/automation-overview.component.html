@@ -1,0 +1,164 @@
+<div class="overview-automation__container d-flex flex-column">
+	<button class="btn btn-sm btn-back">
+		<a [routerLink]="'/automation'" class="m-nav__link">
+			← Automations
+		</a>
+	</button>
+	<h2>
+		<strong>Test</strong>
+	</h2>
+	<p class="overview-automation__info-text text-muted">
+		<span class="badge-status status-danger"> </span>
+		<span><strong>Cancelled</strong></span>
+		<span><small>Created: December 5, 2018 20:01</small></span>
+	</p>
+	<div class="overview-automation__btn-group">
+		<button class="btn btn-sm btn-default">
+			<i class="la la-edit"></i>
+			<span>Edit</span>
+		</button>
+		<button class="btn btn-sm btn-resume">
+			<i class="fa fa-sm fa-play"></i>
+			<span>Resume automation</span>
+		</button>
+		<button class="btn btn-sm btn-delete">
+			<i class="la la-times-circle"></i>
+			<span>Delete automation</span>
+		</button>
+	</div>
+	<div class="overview-automation__table-info">
+		<div class="row table-info-row">
+			<div class="col">
+				<p>Push website:</p>
+			</div>
+			<div class="col">
+				<p>
+					<a href="" target="_blank">mp3indirman.com</a>
+					<span> (10 subscribers) </span>
+				</p>
+			</div>
+		</div>
+		<div class="row table-info-row">
+			<div class="col">
+				<p>Sending condition:</p>
+			</div>
+			<div class="col">
+				<p>Subscription</p>
+			</div>
+		</div>
+		<div class="row table-info-row">
+			<div class="col">
+				<p>Preferred time and days for sending:</p>
+			</div>
+			<div class="col">
+				<code class="tag-day">Mo</code>
+				<code class="tag-day">Tu</code>
+				<code class="tag-day">We</code>
+				<code class="tag-day">Th</code>
+				<code class="tag-day">Fr</code>
+				<code class="tag-day">Sa</code>
+				<code class="tag-day">Su</code>
+				<span>at 09:00</span>
+			</div>
+		</div>
+	</div>
+	<div class="card panel-statistic">
+		<div class="card-body">
+			<div class="row">
+				<div class="col col-md-6">
+					<div class="row">
+						<div class="col item-statistic">
+							<h2>1</h2>
+							<span>subscribers in queue</span>
+						</div>
+						<div class="col item-statistic">
+							<h2>0</h2>
+							<span>completed series</span>
+						</div>
+						<div class="col item-statistic">
+							<h2>0</h2>
+							<span>web push sent</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ul class="list-group card-list">
+		<li class="card-wrapper">
+			<div class="card-number">
+				<strong>1</strong>
+			</div>
+			<div class="card card-info">
+				<div class="card-header">
+					<i class="fa fa-bell bell-icon"></i>
+					<span>
+					<span>Push </span>
+					<strong class="text-green">after 5 days </strong>
+					<span>after user subscribes or is added to the list</span>
+				</span>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-4 col-sm-2 col-lg-1">
+							<div class="img-thumbnail">
+								<img class="img-fluid img-bell" src="../../../../../assets/app/media/img/icons/bell.png">
+							</div>
+						</div>
+						<div class="col-8 col-sm-10 col-lg-11">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title">test</h5>
+									<p class="card-text">test</p>
+									<p class="card-text">https://mp3indirman.com/?utm_source=sendpulse&utm_medium=webpush&utm_campaign=123</p>
+								</div>
+								<div class="col">
+									<h4 class="card-count">0</h4>
+									<span class="card-count-text">sent</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="card-wrapper">
+			<div class="card-number">
+				<strong>2</strong>
+			</div>
+			<div class="card card-info">
+				<div class="card-header">
+					<i class="fa fa-bell bell-icon"></i>
+					<span>
+					<span>Push </span>
+					<strong class="text-green">after 5 hours </strong>
+					<span>after sending a previous message</span>
+				</span>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-4 col-sm-2 col-lg-1">
+							<div class="img-thumbnail">
+								<img class="img-fluid img-bell" src="../../../../../assets/app/media/img/icons/bell.png">
+							</div>
+						</div>
+						<div class="col-8 col-sm-10 col-lg-11">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title">test</h5>
+									<p class="card-text">test</p>
+									<p class="card-text">https://mp3indirman.com/?utm_source=sendpulse&utm_medium=webpush&utm_campaign=123</p>
+								</div>
+								<div class="col">
+									<h4 class="card-count">0</h4>
+									<span class="card-count-text">sent</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+</div>

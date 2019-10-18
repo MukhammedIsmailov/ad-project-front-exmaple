@@ -1,0 +1,10 @@
+<div class="alert-container">
+	<div *ngIf="message"
+		 [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }"
+		 class="alert-message"
+		 [@alertAnimation]
+		 [style.background-color]="message.type === 'success' ? 'green' : '#d61f1f'"
+	>
+		{{message.text}}
+	</div>
+</div>

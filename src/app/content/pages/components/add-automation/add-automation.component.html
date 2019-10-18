@@ -1,0 +1,142 @@
+<h1>
+	New automation
+</h1>
+<div class="container add-automation rounded">
+	<div class="row input-field">
+		<span class="d-flex align-items-center">
+			Automation name:
+		</span>
+		<input type="text" placeholder="Email series name in the service" [(ngModel)]="label" required>
+	</div>
+	<div class="row input-field">
+		<span class="d-flex align-items-center">
+			List of recipients:
+		</span>
+		<select class="form-control m-input" name="selectedWebsite"
+				[(ngModel)]="selectedWebsiteId" required>
+			<option *ngFor="let website of websites" value="{{website._id}}">{{website.url}}
+				({{website.subscribers.length}} subscribers)
+			</option>
+		</select>
+	</div>
+</div>
+<div class="steps-container d-flex">
+	<div class="d-flex flex-column align-items-center">
+		<div class="step">
+			1
+		</div>
+		<div class="vl"></div>
+		<div class="step">
+			+
+		</div>
+	</div>
+	<div class="step-wrapper d-flex flex-column justify-content-between">
+		<form (change)="onMsgChange($event, null, true)" class="m-form--state">
+			<div class="step-form d-flex flex-column rounded">
+				<div class="step-header d-flex">
+					<span>Send push</span>
+					<label for="time" class="time mr-auto ml-2">
+						{{time ? 'after' : ' right away'}}
+						<input type="checkbox" id="time" class="d-none" name="time" [(ngModel)]="time">
+					</label>
+					<div *ngIf="time" class="d-flex">
+						<input type="number" class="count in mr-4" min="1" value="5" name="number">
+						<select name="shift" class="in">
+							<option value="days">days</option>
+							<option value="hours">hours</option>
+							<option value="minutes">min</option>
+						</select>
+					</div>
+				</div>
+				<div class="container">
+					<div>
+						<p>
+							<b>Title:</b>
+						</p>
+						<input type="text" maxlength="50" placeholder="up to 50 characters" name="title">
+					</div>
+					<div>
+						<p>
+							<b>Web push text:</b>
+						</p>
+						<textarea type="text" maxlength="125" placeholder="up to 125 characters" name="body"></textarea>
+					</div>
+					<div>
+						<p>
+							<b>Web push link:</b>
+						</p>
+						<input type="text" name="url">
+					</div>
+					<div>
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+		</form>
+		<form *ngFor="let msg of msgArray; index as  i" (change)="onMsgChange($event, i)" class="m-form--state">
+			<div class="step-form d-flex flex-column rounded mt-5">
+				<div class="step-header d-flex">
+					<div class="d-flex">
+						<span class="mr-4">Send push</span>
+						<input type="number" name="number" class="count in mr-4" min="1" value="5">
+						<select name="shift" class="in">
+							<option value="days">days</option>
+							<option value="hours">hours</option>
+							<option value="minutes">min</option>
+						</select>
+					</div>
+					<button class="close float-right" (click)="deleteMsgFromArray(i)">×</button>
+				</div>
+				<div class="container">
+					<div>
+						<p>
+							<b>Title:</b>
+						</p>
+						<input type="text" name="title" maxlength="50" placeholder="up to 50 characters">
+					</div>
+					<div>
+						<p>
+							<b>Web push text:</b>
+						</p>
+						<textarea type="text" name="body" maxlength="125" placeholder="up to 125 characters"></textarea>
+					</div>
+					<div>
+						<p>
+							<b>Web push link:</b>
+						</p>
+						<input type="text" name="url">
+					</div>
+					<div>
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+		</form>
+		<button class="btn btn-outline-success w-25" (click)="addPushMsg()">
+			<b>New message</b>
+		</button>
+		<div class="container automation-navbar fixed-bottom d-flex flex-row m-portlet justify-content-between m--padding-15 m--margin-bottom-10 right">
+			<div *ngIf="!isAllValid" class="alert alert-danger">
+				<p>Please fill in all the fields</p>
+			</div>
+			<div class="navbar-left">
+				<button type="button" class="save_automation_btn btn btn-success navbar-btn" (click)="saveAutomation()">Save
+					changes
+				</button>
+				<button type="button" class="save_automation_btn btn btn-default navbar-btn color-success"
+						(click)="saveAutomation(true)">
+					<span class="sp-icon icon-play"></span>
+					Save and launch
+				</button>
+			</div>
+			<div class="navbar-right margin-0">
+				<a [routerLink]="'/automation'">
+					<button type="button" class="btn btn-default navbar-btn">
+						<span class="hidden-xs">Cancel</span>
+						<span class="visible-xs-inline-block sp-icon icon-nope margin-0 color-danger"></span>
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

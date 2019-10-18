@@ -1,0 +1,169 @@
+<div class="m-portlet">
+	<div class="m-widget16 m--padding-20">
+		<div *ngIf="push" class="m-widget__container">
+			<div class="media">
+				<div class="media-left">
+					<div class="push-image__container m--margin-right-10">
+						<img class="push-image__preview" [src]="push?.icon || defaultPushImageUrl" alt="">
+					</div>
+
+				</div>
+				<div class="media-body">
+					<h5>{{push.title || 'Campaign'}}</h5>
+					<p><span class="m--font-bold">Sent:</span> {{formatDate(push.date, 'MMMM D, YYYY HH:mm')}}</p>
+					<p *ngIf="push.delayedDate"><span class="m--font-bold">Delayed date:</span> {{formatDate(push.delayedDate, 'MMMM D, YYYY HH:mm')}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2">
+					<div class="radial-indicator">
+						<mat-progress-spinner
+							[color]="clicksRoundData.color"
+							[mode]="clicksRoundData.mode"
+							[value]="clicksRoundData.value">
+						</mat-progress-spinner>
+						<div class="radial-indicator__label">
+							<div class="m-widget24">
+								<div class="m-widget24__item text-center">
+									<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				           			 {{push.clickedPercentage}}%
+									</span>
+									<span class="m-widget24__desc m--marginless">
+										clicks
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-10">
+					<div class="row m-row--no-padding justify-content-center">
+						<div
+							class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15 text-center">
+							<div class="m-widget24">
+								<div class="m-widget24__item">
+									<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				           			 {{push.sended || 0}}
+									</span>
+									<br>
+									<span class="m-widget24__desc m--marginless">
+										sent
+									</span>
+								</div>
+							</div>
+						</div>
+						<div
+							class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15 text-center">
+							<div class="m-widget24">
+								<div class="m-widget24__item">
+									<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				           			 {{push.deliveredCount || 0}}
+									</span>
+									<br>
+									<span class="m-widget24__desc m--marginless">
+										<span class="m--font-bold">
+											{{push.deliveredPercentage}}%</span> delivered
+									</span>
+								</div>
+							</div>
+						</div>
+						<div
+							class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15 text-center">
+							<div class="m-widget24">
+								<div class="m-widget24__item">
+									<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				           			 {{push.clickCount || 0}}
+									</span>
+									<br>
+									<span class="m-widget24__desc m--marginless">
+										clicks
+									</span>
+								</div>
+							</div>
+						</div>
+						<div
+							class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15 text-center">
+							<div class="m-widget24">
+								<div class="m-widget24__item">
+									<span class="m-widget24__stats m--font-brand float-none m--marginless">
+										{{push.unsubscribedCount || 0}}
+									</span>
+									<br>
+									<span class="m-widget24__desc m--marginless">
+										unsubscribed
+									</span>
+								</div>
+							</div>
+						</div>
+						<div
+							class="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15 text-center">
+							<div class="m-widget24">
+								<div class="m-widget24__item">
+									<span class="m-widget24__stats m--font-brand float-none m--marginless">
+				           			 {{push.deliveryFailed || 0}}
+									</span>
+									<br>
+									<span class="m-widget24__desc m--marginless">
+										delivery failed
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mat-elevation-z8 ng-star-inserted">
+						<table class="table">
+							<thead>
+							<tr class="active">
+								<td>
+									In the sending queue
+								</td>
+								<td *ngIf="push.waiting">
+									yes
+								</td>
+								<td *ngIf="!push.waiting">
+									false
+								</td>
+							</tr>
+							<tr class="active">
+								<td>
+									Sent, delivery status not known yet
+								</td>
+								<td>
+									{{push.sentAndNotDelivered}}
+								</td>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>List of recipients</td>
+								<td>
+									{{push.url}}
+								</td>
+							</tr>
+							<tr>
+								<td>Title</td>
+								<td>
+									{{push.title}}
+								</td>
+							</tr>
+							<tr>
+								<td>Web push text</td>
+								<td>
+									{{push.body}}
+								</td>
+							</tr>
+							<tr>
+								<td>Link</td>
+								<td >
+									 {{push.link}}
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

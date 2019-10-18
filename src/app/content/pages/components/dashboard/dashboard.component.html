@@ -1,0 +1,34 @@
+<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+<div class="row justify-content-center dashboard__actions-row">
+	<button routerLink="/send-push" class="btn btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase button-send-push">
+		<i class="flaticon-file"></i>
+		Send PUSH
+	</button>
+	<button routerLink="/add-new" class="btn btn-info m-btn m-btn--custom m-btn--boldest m-btn--uppercase">
+		<i class="flaticon-add"></i>
+		Add new website
+	</button>
+</div>
+<m-my-campaigns-statistic *ngIf="totalStatistics" [campaignStatistic]="totalStatistics"></m-my-campaigns-statistic>
+<div class="m-portlet">
+	<div class="m-portlet__body m-portlet__body--no-padding">
+		<div class="row m-row--no-padding">
+			<div class="col-12">
+				<m-recent-campaigns-chart></m-recent-campaigns-chart>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="m-portlet">
+	<div class="m-portlet__head">
+		<div class="m-portlet__head-caption">
+			<div class="m-portlet__head-title">
+				<h3 class="m-portlet__head-text">
+					My websites
+				</h3>
+			</div>
+		</div>
+	</div>
+	<m-my-websites [sites]="sites" (delete)="deleteSite($event)" ></m-my-websites>
+</div>

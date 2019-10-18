@@ -1,0 +1,26 @@
+:host {
+	.dashboard__actions-row {
+		margin: 0;
+	}
+
+	button {
+		margin-right: 5px;
+		margin-bottom: 15px;
+	}
+
+	.m-dropdown__body {
+		display: block;
+	}
+
+	.m-portlet {
+		.m-portlet__head-text {
+			min-height: 40px;
+			font-size: 1.4rem;
+			font-weight: bold;
+		}
+	}
+
+	.button-send-push{
+		padding: .75rem 3.85rem;
+	}
+}

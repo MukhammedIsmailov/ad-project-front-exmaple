@@ -1,0 +1,176 @@
+<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+
+<div *ngIf="campaign" class="m-widget__container">
+
+    <div class="m-portlet ">
+        <div class="m-portlet__body  m-portlet__body--no-padding">
+            <div class="row m-row--no-padding m-row--col-separator-xl">
+                <div class="row justify-content-center w-100">
+                    <div class="col-12 campaign-data__urls">
+                        <div class="col-12 col-md-6">
+                            <p class="campaign-data__description">Campaign service:</p>
+                            <p class="campaign-data__value campaign-data__value-text">
+                                {{serviceName}}
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <p class="campaign-data__description">Campaign site:</p>
+                            <p class="campaign-data__value campaign-data__value-text">
+                                <a [href]="campaign.websiteUrl" target="_blank">{{campaign.websiteUrl}}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-portlet">
+        <div class="m-widget14">
+            <div class="row justify-content-center campaign-date-creation campaign-data__date-creation">
+                <div class="col-12">
+                    <p class="campaign-data__value campaign-data__value-text campaign-date-creation__text">
+                        <span class="campaign-data__description">Date creation: </span>{{campaign.date}}
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="campaignStatus"
+                 class="row justify-content-center campaign-data-status campaign-data__send-status">
+                <div class="col-12 col-md-9 campaign-data-status__value">
+                    <p class="campaign-data__value campaign-data__value-text campaign-data-status__value-text">
+                        <span class="campaign-data__description">Status of shipments: </span>{{campaignStatus}}
+                    </p>
+                </div>
+                <div *ngIf="campaignStatus !== campaignStatusCompleted"
+                     class="col-12 col-md-3 campaign-data-status__change">
+                    <button class="btn btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase button-send-push"
+                            (click)="changeCampaignStatus()">
+                        Change status
+                    </button>
+                </div>
+            </div>
+            <div class="row justify-content-center campaign-data__main-statistics">
+                <div class="col-6 col-md-3">
+                    <p class="campaign-data__value campaign-data__value-number">
+                        {{campaign.sent || 0}}
+                    </p>
+                    <p class="campaign-data__description">
+                        sent
+                    </p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <p class="campaign-data__value campaign-data__value-number">
+                        {{campaign.deliveredCount || 0}}
+                    </p>
+                    <p class="campaign-data__description">
+                        {{campaign.deliveredPercentage || 0}}% delivered
+                    </p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <p class="campaign-data__value campaign-data__value-number">
+                        {{campaign.clickCount || 0}}
+                    </p>
+                    <p class="campaign-data__description">
+                        clicks
+                    </p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <p class="campaign-data__value campaign-data__value-number">
+                        {{campaign.deliveryFailed || 0}}
+                    </p>
+                    <p class="campaign-data__description">
+                        delivery failed
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-portlet">
+        <div class="m-widget14">
+            <div class="row justify-content-center campaign-data__list-notifications">
+                <div class="col-12 campaign-data__last-notification data-notifications text-center">
+                    <p class="campaign-data__value campaign-data__value-text">Last notifications</p>
+                </div>
+                <div class="mat-elevation-z8">
+                    <div class="container-fluid">
+                        <div class="row" *ngIf="!viewCampaignNotifications.length">
+                            <p class="campaign-data__description campaign-data__notification-not-send">Notifications
+                                have not yet been sent</p>
+                        </div>
+                        <div class="row campaign-data__notification-properties notification-properties"
+                             *ngIf="viewCampaignNotifications.length">
+                            <div class="col-4 notification-properties__title-property">
+                                <p class="notification-properties__text-property campaign-data__description">Title</p>
+                            </div>
+                            <div class="col-4 notification-properties__title-property">
+                                <p class="notification-properties__text-property campaign-data__description">
+                                    Description</p>
+                            </div>
+                            <div class="col-2 notification-properties__title-property">
+                                <p class="campaign-data__description">Icon</p>
+                            </div>
+                            <div class="col-2 notification-properties__title-property">
+                                <p class="campaign-data__description">Link</p>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="viewCampaignNotifications.length">
+                            <div class="row campaign-data__notifications-data notifications-data"
+                                 *ngFor="let notification of viewCampaignNotifications">
+                                <ng-container *ngIf="notification">
+                                    <div class="col-4 notifications-data__property">
+                                        <p>{{notification.title || 'No title'}}</p>
+                                    </div>
+                                    <div class="col-4 notifications-data__property">
+                                        <p>{{notification.description || 'No description'}}</p>
+                                    </div>
+                                    <div class="col-2 notifications-data__property notifications-data__property-icon">
+                                        <img class="notifications-data__icon" [src]="notification.icon" alt="Icon">
+                                    </div>
+                                    <div class="col-2 notifications-data__property notifications-data__property-link">
+                                        <a [href]="notification.data.redirectUrl" target="_blank">Open</a>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="this.viewCampaignNotifications" class="paginator-container">
+                        <mat-paginator [length]="filteredNotifications.length"
+                                       [pageSize]="pageSize"
+                                       [pageIndex]="pageIndex"
+                                       [pageSizeOptions]="pageSizeOptions"
+                                       (page)="pageEvent($event)">
+                        </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="m-portlet">
+        <div class="m-widget14">
+            <div class="row justify-content-center">
+                <div class="campaign-data__delete-campaign">
+                    <ng-container *ngIf="!deleteModalStatus">
+                        <button class="btn btn-danger m-btn m-btn--custom m-btn--boldest m-btn--uppercase"
+                                (click)="changeDeleteModalStatus()">
+                            Delete campaign
+                        </button>
+                    </ng-container>
+                    <div *ngIf="deleteModalStatus" class="campaign-data__delete-confirm delete-confirm">
+                        <div class="col-12">
+                            <p class="delete-confirm__text campaign-data__description">Are you sure?</p>
+                        </div>
+                        <button class="btn btn-danger m-btn m-btn--custom m-btn--boldest m-btn--uppercase"
+                                (click)="deleteCampaign()">
+                            Yes
+                        </button>
+                        <button class="btn btn-light m-btn m-btn--custom m-btn--boldest m-btn--uppercase delete-confirm__button-no"
+                                (click)="changeDeleteModalStatus()">
+                            No
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+:host {
+  .add-service__url-campaign{
+    margin-bottom: 15px;
+  }
+
+  .add-service__add-option{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+  }
+
+  .add-service__query-request{
+    position: relative;
+    overflow: hidden;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  .add-service__response{
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  .add-service__response-field{
+
+  }
+
+}

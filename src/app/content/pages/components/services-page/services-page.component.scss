@@ -1,0 +1,177 @@
+:host {
+  .service-tab {
+    padding: .5rem 1rem;
+  }
+
+  /deep/ .nav-link {
+    padding: 0
+  }
+
+  * {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .m--font-boldest {
+    font-weight: 600;
+  }
+
+  .m-portlet .m-portlet__foot:not(.m-portlet__no-border) {
+    border: none;
+  }
+
+  .services-send__text {
+    padding-top: 10px;
+    margin-right: 5px;
+  }
+
+  .services-send__checkbox {
+    margin-right: 10px;
+  }
+
+  .services-send__time-inputs {
+    display: flex;
+  }
+
+  .services-send__time-input {
+    position: relative;
+    height: 45px;
+    width: 105px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px #ccc solid;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .services-send__time-input-delay {
+    margin-right: 5px;
+  }
+
+  .services__date-time-text {
+    position: relative;
+    top: 0;
+    margin-bottom: 15px;
+  }
+
+  .services-send__date-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+    margin-bottom: 15px;
+  }
+
+  .services-send__time-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .services__selected-interval {
+    position: relative;
+    min-height: 185px;
+  }
+
+  .services-send__time-selected-interval {
+    position: relative;
+    height: calc(100% - 47px);
+  }
+
+  .services-send__time-selected-line {
+    position: relative;
+    width: 1px;
+    height: 100%;
+    background-color: #cccccc;
+  }
+
+  // duplicate
+
+  .services-send__duplicate-active {
+    margin-bottom: 15px;
+  }
+
+  .services-send__duplicate-text {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
+  .count-form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .count-form__input {
+    position: relative;
+    width: 60px;
+    height: 46px;
+    padding: 12.75px 17.250px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    border: 1px solid #ebedf2;
+    border-radius: 5px;
+  }
+
+  .count-form__input::-webkit-outer-spin-button,
+  .count-form__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  .count-form__button {
+    position: relative;
+    width: 48px;
+    height: 47px;
+    padding: 12.75px 17.25px;
+  }
+
+  .count-form__increment,
+  .count-form__decrement {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .count-form__increment:before,
+  .count-form__increment:after,
+  .count-form__decrement:before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: 16px;
+    width: 16px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: #5867dd;
+  }
+
+  .count-form__increment:after {
+    transform: rotate(90deg);
+  }
+
+  .add-service__icon {
+    position: relative;
+    width: auto;
+    height: 20px;
+  }
+
+  .services-push__buttons {
+    position: absolute;
+  }
+
+}
+
+@media screen and (max-width: 440px) {
+  :host {
+    .services-send__time-selected-interval {
+      position: relative;
+      height: calc(100% - 97px);
+    }
+    .delete-service__button_active{
+      padding-top: 60px;
+    }
+  }
+}

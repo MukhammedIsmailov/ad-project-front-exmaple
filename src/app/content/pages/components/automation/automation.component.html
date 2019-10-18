@@ -1,0 +1,97 @@
+<div class="header">
+	<h1>Automation for web push</h1>
+	<p>Automation is predefined series of messages (emails, text or web push notifications) which is sent according to
+		the rules you specify.
+		You need to set up the sending flow only once and the messages will be sent to your subscribers automatically.
+	</p>
+	<button _ngcontent-c9="" [routerLink]="'/automation/add'" class="btn btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase"
+			routerlink="/send-push" tabindex="0" ng-reflect-router-link="/send-push"><i _ngcontent-c9=""
+																						class="flaticon-rocket"></i>
+		Create new automation
+	</button>
+</div>
+<div class="automations">
+	<div class="avatar">
+		<i class="flaticon-rocket"></i>
+	</div>
+	<div class="position-relative task-info">
+		<div class="info-first">
+		<span class="clip-text" href="">
+			Test
+		</span>
+		<span class="status">
+          Active
+        </span>
+		</div>
+		<div class="second-info">
+			4
+			<span>
+				05.12.2018 20:01
+			</span>
+		</div>
+	</div>
+	<div class="subscribers">
+  		<span class="count">
+    		1
+  		</span>
+		<span class="description">
+    		subscribers in queue
+  		</span>
+	</div>
+	<div class="series">
+  		<span class="count">
+    		0
+  		</span>
+		<span class="description">
+    		Completed series
+  		</span>
+	</div>
+	<div class="messages-sent">
+  		<span class="count">
+    		0
+  		</span>
+		<span class="description">
+    		messages sent
+  		</span>
+	</div>
+	<div
+		class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+		m-dropdown-toggle="click" aria-expanded="true">
+		<a href="#"
+		   class="m-portlet__nav-link m-dropdown__toggle btn btn-secondary m-btn m-btn--icon m-btn--pill">
+			<i class="la la-ellipsis-v"></i>
+		</a>
+		<div class="m-dropdown__wrapper" style="z-index: 101;">
+		<span
+			class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"
+			style="left: auto; right: 24.5px;"></span>
+			<div class="m-dropdown__inner">
+				<div class="m-dropdown__body">
+					<div class="m-dropdown__content">
+						<ul class="m-nav">
+							<li class="m-nav__section m-nav__section--first">
+								<span class="m-nav__section-text">
+									Quick Actions
+								</span>
+							</li>
+							<li class="m-nav__item">
+								<a [routerLink]="'/automation-overview'" class="m-nav__link">
+									<i class="m-nav__link-icon flaticon-cogwheel-1"></i>
+									<span
+										class="m-nav__link-text">Automation overview</span>
+								</a>
+							</li>
+							<li class="m-nav__item">
+								<a href="javascript:void(0)" class="m-nav__link">
+									<i class="m-nav__link-icon flaticon-cancel"></i>
+									<span
+										class="m-nav__link-text">Delete Automation</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

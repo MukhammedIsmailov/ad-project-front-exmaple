@@ -1,0 +1,61 @@
+<div>
+	<div class="m-portlet">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-caption">
+				<div class="m-portlet__head-title">
+					<h2 class="m-portlet__head-text">
+						<span>Push website code</span>
+					</h2>
+				</div>
+			</div>
+		</div>
+		<div class="m-portlet__body">
+			<p>Copy and paste code into your website template before the closing <code>&lt;/head&gt;</code> tag</p>
+			<code>&lt;script charset="UTF-8" src="{{website.linkForSWRegistrator}}" async&gt;&lt;/script&gt;</code>
+			<div class="js-result-text" hidden>
+				<div class="bold small color-success">
+					<span class="glyphicon glyphicon-ok-sign"></span> Code was added correctly
+				</div>
+			</div>
+			<div class="js-result-text" hidden>
+				<div class="bold small color-danger">
+					<span class="glyphicon glyphicon-remove-sign"></span> Not integrated
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="m-portlet">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-caption">
+				<div class="m-portlet__head-title">
+					<h2 class="m-portlet__head-text">
+						<span>Setup files</span>
+					</h2>
+				</div>
+			</div>
+		</div>
+		<div class="m-portlet__body">
+			<p>Download the setup files below. Unzip the archive and upload the files
+				into the top-level directory (<samp> root <!-- SAMP-->, or '<samp>/<!-- SAMP--> ') of your
+					website.</samp></samp></p>
+			<p>
+				<a [href]="website.linkForSW"
+				   class="btn btn-default">
+					<span class="glyphicon glyphicon-download"></span>
+					Download the setup files </a>
+			</p>
+			<div class="js-result-text" hidden>
+				<div class="bold small color-success">
+					<span class="glyphicon glyphicon-ok-sign"></span>
+					Files <samp>service-worker.js</samp>, are installed
+				</div>
+			</div>
+			<div class="js-result-text" hidden>
+				<div class="bold small color-danger">
+					<span class="glyphicon glyphicon-remove-sign"></span>
+					File not found <samp>service-worker.js</samp>,
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

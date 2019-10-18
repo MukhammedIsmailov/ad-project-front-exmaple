@@ -1,0 +1,284 @@
+<h3 class="m-portlet__head-text">
+	{{siteName}}
+</h3>
+
+<div class="row justify-content-start site__actions-row">
+	<button routerLink="/send-push" class="btn btn-success m-btn m-btn--custom m-btn--boldest m-btn--uppercase">
+		<i class="flaticon-file"></i>
+		Create a push campaign
+	</button>
+	<button [routerLink]="'/sites-settings/'+id"
+			class="btn btn-info m-btn m-btn--custom m-btn--boldest m-btn--uppercase">
+		<i class="flaticon-cogwheel-1"></i>
+		Website settings
+	</button>
+</div>
+
+<div class="m-portlet">
+	<div class="m-widget14">
+		<div class="m-widget__container">
+			<ngx-loading [show]="loadingSpinner" [config]="spinnerConfig"></ngx-loading>
+			<ngb-tabset>
+				<ngb-tab>
+					<ng-template ngbTabTitle>Statistics</ng-template>
+					<ng-template ngbTabContent>
+						<div class="row m-row--no-padding justify-content-center statistics-row">
+							<div
+								class="col-4 col-md-4 col-lg-2 col-xl-2 d-flex justify-content-center justify-content-lg-between align-items-center m--padding-15">
+								<div class="m-widget24">
+									<div class="m-widget24__item">
+										<div class="m-widget24__stats m--font-brand float-none m--marginless">
+											{{siteStatisticsForCards?.allSubscribers}}
+										</div>
+										<span class="m-widget24__desc m--marginless">
+											subscribers
+										</span>
+									</div>
+								</div>
+							</div>
+							<div
+								class="col-4 col-md-4 col-lg-2 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+								<div class="m-widget24">
+									<div class="m-widget24__item">
+										<div class="m-widget24__stats m--font-brand float-none m--marginless">
+											{{siteStatisticsForCards?.allSubscribers}}
+										</div>
+										<span class="m-widget24__desc m--marginless">
+								active subscribers
+							</span>
+									</div>
+								</div>
+							</div>
+							<div
+								class="col-4 col-md-4 col-lg-2 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+								<div class="m-widget24">
+									<div class="m-widget24__item">
+										<div class="m-widget24__stats m--font-brand float-none m--marginless">
+											{{siteStatisticsForCards?.newSubscribersCount}}
+										</div>
+										<span class="m-widget24__desc m--marginless">
+								subscribers for today
+							</span>
+									</div>
+								</div>
+							</div>
+							<div
+								class="col-4 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+								<div class="m-widget24">
+									<div class="m-widget24__item">
+										<div class="m-widget24__stats m--font-brand float-none m--marginless">
+											{{siteStatisticsForCards?.unsubscribeCount}}
+										</div>
+										<span class="m-widget24__desc m--marginless">
+								unsubscribers
+							</span>
+									</div>
+								</div>
+							</div>
+							<div
+								class="col-4 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center align-items-center m--padding-15">
+								<div class="m-widget24">
+									<div class="m-widget24__item">
+										<div class="m-widget24__stats m--font-brand float-none m--marginless">
+											{{siteStatisticsForCards?.campaigns}}
+										</div>
+										<span class="m-widget24__desc m--marginless">
+								campaigns
+							</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row chart-controls justify-content-between">
+							<div class="col-12 col-md-4  align-self-center">
+								<mat-form-field class="chart-controls__group-selector">
+									<mat-select [(value)]="groupFilter"
+												(selectionChange)="groupSelectorChanged($event)">
+										<mat-option *ngFor="let group of groups" [value]="group.value">
+											{{ group.viewValue }}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</div>
+							<div class="col-12 col-md-5 col-lg-4 align-self-center justify-content-end">
+								<mat-button-toggle-group [value]="periodFilter" #group="matButtonToggleGroup" class="float-right">
+									<mat-button-toggle *ngFor="let period of periods"
+													   (change)="periodSelectorChanged($event)" [value]="period.value">
+										{{ period.viewValue }}
+									</mat-button-toggle>
+								</mat-button-toggle-group>
+							</div>
+						</div>
+
+						<div class="m-widget__container">
+							<canvas *ngIf="chartLabels" baseChart
+									[datasets]="chartData"
+									[labels]="chartLabels"
+									[options]="chartOptions"
+									[legend]="chartLegend"
+									[chartType]="chartType"
+									(chartHover)="chartHovered($event)"
+									(chartClick)="chartClicked($event)">
+							</canvas>
+						</div>
+						<div class="row m-row--no-padding justify-content-center statistics-row">
+							<div
+								class="col-4 d-flex justify-content-center align-items-center m--padding-15 period-statistics">
+								New subscribers for the period:
+								<span class="period-statistics__parameter">{{periodStatistics.periodNewSubscribersCount}}</span>
+							</div>
+							<div
+								class="col-4 d-flex justify-content-center align-items-center m--padding-15 period-statistics">
+								Unsubscribed:
+								<span
+									class="period-statistics__parameter">{{periodStatistics.periodUnsubscribeCount}}.</span>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab>
+					<ng-template ngbTabTitle>
+						<div (click)="setPaginator()">
+							Subscribers
+						</div>
+					</ng-template>
+					<ng-template ngbTabContent>
+						<div class="position-relative">
+							<label class="filters-btn-container d-flex align-items-center" for="filters">
+								<div class="rounded-circle mr-1">
+									🔍
+								</div>
+								<small class="filter-btn">Filter</small>
+								<input type="checkbox" id="filters" class="d-none" [(ngModel)]="isOpenFilter">
+							</label>
+							<br/>
+							<div class="filters-container" *ngIf="isOpenFilter">
+								<div class="filters d-flex flex-column justify-content-around">
+									<div class="d-flex flex-column">
+										<small>Country</small>
+										<input type="text"
+											   class="default-fields container-fluid"
+											   [(ngModel)]="filterCountry">
+									</div>
+									<div class="d-flex flex-column">
+										<small>Status</small>
+										<select class="default-fields container-fluid" [(ngModel)]="currentStatus">
+											<option value="any">
+												all
+											</option>
+											<option value="active">
+												Active
+											</option>
+											<option value="disabled">
+												Disabled
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="footer d-flex justify-content-between align-items-center border">
+									<div (click)="cancelFilter()">
+										<small class="cancel-btn">
+											Cancel
+										</small>
+									</div>
+									<div>
+										<button class="btn reset" (click)="resetFilter()">
+											Reset
+										</button>
+										<button class="btn ok" (click)="filterData()">
+											Ok
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mat-elevation-z8">
+							<table mat-table class="subscribers-table" [dataSource]="subscribersData">
+								<ng-container matColumnDef="browser">
+									<th mat-header-cell *matHeaderCellDef> Browser, OS</th>
+									<td mat-cell *matCellDef="let element">
+										<small *ngIf="element.unsubscribeDate" class="badge badge-status status-red">
+											-
+										</small>
+										<small *ngIf="!element.unsubscribeDate" class="badge badge-status status-green">
+											+
+										</small>
+										{{element.browser}}, {{element.os}}
+									</td>
+								</ng-container>
+
+								<ng-container matColumnDef="region">
+									<th mat-header-cell *matHeaderCellDef> Region</th>
+									<td mat-cell *matCellDef="let element">
+										{{element.region.country}}, {{element.region.region}}, {{element.region.city}} <br>
+										<span class="small-description">IP: {{element.ip}}</span>
+									</td>
+								</ng-container>
+
+								<ng-container matColumnDef="date">
+									<th mat-header-cell *matHeaderCellDef> Subscription date</th>
+									<td mat-cell *matCellDef="let element">
+										{{element.date}} <br>
+										{{element.time}}
+									</td>
+								</ng-container>
+
+								<ng-container matColumnDef="options">
+									<th mat-header-cell *matHeaderCellDef></th>
+									<td mat-cell class="actions-td" *matCellDef="let element">
+										<div
+											class="dropdown-td m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+											m-dropdown-toggle="click" aria-expanded="true">
+											<a href="#"
+											   class="m-portlet__nav-link m-dropdown__toggle btn btn-secondary m-btn m-btn--icon m-btn--pill">
+												<i class="la la-ellipsis-v"></i>
+											</a>
+											<div class="m-dropdown__wrapper" style="z-index: 101;">
+											<span
+												class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"
+												style="left: auto; right: 24.5px;"></span>
+												<div class="m-dropdown__inner">
+													<div class="m-dropdown__body">
+														<div class="m-dropdown__content">
+															<ul class="m-nav">
+																<li class="m-nav__section m-nav__section--first">
+																	<span
+																		class="m-nav__section-text pb-3">Quick Actions
+																	</span>
+																</li>
+																<!--<li class="m-nav__item">-->
+																<!--<a href="" class="m-nav__link">-->
+																<!--<i class="m-nav__link-icon flaticon-cogwheel-1"></i>-->
+																<!--<span-->
+																<!--class="m-nav__link-text">Details</span>-->
+																<!--</a>-->
+																<!--</li>-->
+																<li class="m-nav__item"
+																	(click)="this.deleteSubscriber(element.id)">
+																	<a href="javascript:void(0)" class="m-nav__link">
+																		<i class="m-nav__link-icon flaticon-cancel"></i>
+																		<span
+																			class="m-nav__link-text">Delete subscriber</span>
+																	</a>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+								</ng-container>
+								<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+								<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+							</table>
+							<mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+						</div>
+					</ng-template>
+				</ngb-tab>
+			</ngb-tabset>
+		</div>
+	</div>
+</div>
+

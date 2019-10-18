@@ -1,0 +1,18 @@
+.alert-message {
+	margin: auto;
+	width: auto;
+	max-width: 300px;
+	color: white;
+	border-radius: 0 0 10px 10px;
+	min-height: 30px;
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.alert-container {
+	z-index: 10000;
+	width: 100%;
+	position: fixed;
+	top: 0;
+}

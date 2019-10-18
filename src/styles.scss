@@ -1,0 +1,201 @@
+/* You can add global styles to this file, and also import other style files */
+//@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+
+
+.mat-table__wrapper {
+	width: 100%;
+	overflow-x: auto;
+
+
+	mat-cell, mat-header-cell {
+		min-height: 100%;
+	}
+
+
+}
+
+.mat-table__wrapper .mat-table {
+	min-width: 1000px;
+	width: 100%;
+}
+
+.mat-table__wrapper--dashboard .mat-table {
+	min-width: 600px !important;
+}
+
+
+.mat-table__wrapper .mat-table .email-cell {
+	word-wrap: normal;
+	width: 180px;
+	flex: auto;
+}
+
+
+.m-mat-dialog-container__wrapper .mat-dialog-container {
+	padding: 0;
+	overflow-x: hidden;
+
+	.m-portlet {
+		margin-bottom: 0;
+	}
+
+	.alert {
+		border-radius: 0 !important;
+		width: 1032px;
+	}
+}
+
+.mat-table__wrapper--sub .mat-table {
+	min-width: 400px;
+
+	.mat-cell:last-child {
+		flex: 0 0 100px;
+	}
+
+	.mat-header-cell:last-child {
+		flex: 0 0 100px;
+	}
+}
+
+.ml-auto {
+	margin-left: auto;
+}
+
+.example-full-width {
+	width: 100%;
+}
+
+mat-radio-button {
+	padding-right: 16px;
+}
+
+.m-form--alert {
+	margin-top: 30px;
+}
+
+.mat-column-checkbox {
+	flex: 0 0 68px;
+}
+
+.mat-column-id {
+	flex: 0 0 68px;
+}
+
+.mat-column-main {
+	flex: 0 0 568px;
+}
+
+.mat-column-actions {
+	flex: 0 0 160px;
+}
+
+.mat-table__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.mat-column-vinCode {
+	flex: 0 0 170px;
+}
+
+.m-portlet-mx-0 {
+	margin: -1.1rem -2.2rem 0;
+	overflow-x: hidden;
+}
+.mat-table__wrapper .mat-table .mat-row-editing.mat-row-inactive {
+	height: 0;
+	min-height: 0;
+	padding: 0 !important;
+	border-bottom:0 !important;
+}
+.m-section__content {
+	position: relative;
+}
+.default-fields {
+	display: block;
+	width: 70%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.filters-btn-container {
+	cursor: pointer;
+	.filter-btn {
+		border-bottom: 1px dotted #0B99B2;
+		color: #0B99B2;
+	}
+}
+
+.filters-container {
+	width: 324px;
+	position: absolute;
+	z-index: 1000;
+	top: 30px;
+	.filters {
+		background: #FFFFFF;
+		border: 1px solid #CAD5E0;
+		padding: 10px;
+		position: relative;
+		min-height: 200px;
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: -6px;
+			left: 10px;
+			width: 10px;
+			height: 10px;
+			background: #FFFFFF;
+			border-right: 1px solid #CAD5E0;
+			border-bottom: 1px solid #CAD5E0;
+			-moz-transform:rotate(-135deg);
+			-webkit-transform:rotate(-135deg);
+		}
+		.time {
+			input {
+				width: 137px;
+			}
+		}
+	}
+	.footer {
+		background: #f0f0f0;
+		padding: 10px;
+		.reset {
+			background-color: transparent;
+			border: 1px solid #c6c6c6;
+			color: #adadad;
+			margin-left: 13px;
+			padding-left: 15px;
+			padding-right: 15px;
+			margin-right: 15px;
+		}
+		.ok {
+			background-color: #F86850;
+			padding-left: 15px;
+			padding-right: 15px;
+			margin-left: 7px;
+			border: none;
+			color: #fff;
+		}
+		.cancel-btn {
+			color: #adadad;
+			border-bottom: 1px dotted #adadad;
+			cursor: pointer
+		}
+	}
+}
